@@ -15,11 +15,27 @@ class PerfrenceManager {
     _preferences = await SharedPreferences.getInstance();
   }
 
-  Future<bool> setbool(String key, bool value) {
-    return _preferences.setBool(key, value);
+  String? getstring(String key) {
+    return _preferences.getString(key);
+  }
+
+  Future<bool> setstring(String key, String value) async {
+    return await _preferences.setString(key, value);
+  }
+
+  Future<bool> setbool(String key, bool value) async {
+    return await _preferences.setBool(key, value);
   }
 
   bool? getbool(String key) {
     return _preferences.getBool(key);
+  }
+
+  Future<bool> remove(String key) {
+    return _preferences.remove(key);
+  }
+
+  Future<bool> clear() {
+    return _preferences.clear();
   }
 }

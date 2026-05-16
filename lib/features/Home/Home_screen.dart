@@ -14,30 +14,11 @@ class HomeScreen extends StatelessWidget {
       child: Consumer<HomeController>(
         builder: (BuildContext context, value, Widget? child) {
           return Scaffold(
-            body: value.isEveryThingLoading
-                ? const Center(child: CircularProgressIndicator())
-                : value.errormessage != null &&
-                      value
-                          .errormessage!
-                          .isNotEmpty // ← check null first
-                ? Center(
-                    child: Text(
-                      value.errormessage!,
-                      style: const TextStyle(fontSize: 20),
-                    ),
-                  )
-                : value
-                      .topHEadArticleList
-                      .isEmpty // ← guard empty list
-                ? const Center(child: Text("No articles found"))
-                : ListView.builder(
-                    itemCount: value.topHEadArticleList.length,
-                    itemBuilder: (context, index) {
-                      return Center(
-                        child: Text(value.topHEadArticleList[index].title),
-                      );
-                    },
-                  ),
+            body: Stack(
+              children: [
+                SizedBox(child: Image.asset("assets/images/imagesback.png")),
+              ],
+            ),
           );
         },
       ),

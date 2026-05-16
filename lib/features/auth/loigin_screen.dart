@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:newsapp/core/Theme/light_colors.dart';
+import 'package:newsapp/data_source/local_data/prefrencemanger.dart';
+import 'package:newsapp/features/Home/Home_screen.dart';
 import 'package:newsapp/features/auth/signup_screen.dart';
 import 'package:newsapp/features/auth/widget/custome_textfiled.dart';
+import 'package:newsapp/features/main/main_Screen.dart';
 
 class LogInScreen extends StatefulWidget {
   const LogInScreen({super.key});
@@ -14,6 +17,8 @@ class _LogInScreenState extends State<LogInScreen> {
   late TextEditingController namecontroller;
   late TextEditingController passworedcontroller;
   late GlobalKey<FormState> key;
+  bool isloading = false;
+  String? errorMessage;
 
   @override
   void initState() {
@@ -122,21 +127,35 @@ class _LogInScreenState extends State<LogInScreen> {
                       haintText: "********",
                       controller: passworedcontroller,
                     ),
+                    Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Text(
+                        errorMessage ?? "",
+
+                        style: TextTheme.of(context).displayMedium!.copyWith(
+                          color: AppLightColor.primaryColor,
+                        ),
+                      ),
+                    ),
                     const SizedBox(height: 20),
+
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         fixedSize: Size(MediaQuery.sizeOf(context).width, 48),
                       ),
                       onPressed: () {
                         if (key.currentState!.validate()) {
+                          login();
                         } else {}
                       },
-                      child: Text(
-                        "Sign In",
-                        style: TextTheme.of(
-                          context,
-                        ).displayMedium!.copyWith(color: Colors.white),
-                      ),
+                      child: isloading
+                          ? CircularProgressIndicator()
+                          : Text(
+                              "Sign In",
+                              style: TextTheme.of(
+                                context,
+                              ).displayMedium!.copyWith(color: Colors.white),
+                            ),
                     ),
                     const SizedBox(height: 24),
                     Row(
@@ -176,6 +195,35 @@ class _LogInScreenState extends State<LogInScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  void login() {
+    setState(() {
+      isloading = true;
+      errorMessage = null;
+    });
+    final savedEmail = PerfrenceManager().getstring("Saved_Email");
+    final savedPassword = PerfrenceManager().getstring("Saved_Password");
+    if (savedEmail == null || savedPassword == null) {
+      setState(() {
+        errorMessage = "Please try to regestire";
+        isloading = false;
+      });
+      return;
+    }
+    if (savedEmail != namecontroller.text.trim() ||
+        savedPassword != passworedcontroller.text.trim()) {
+      setState(() {
+        errorMessage = "Incorect Passwored Or Email ";
+        isloading = false;
+      });
+      return;
+    }
+    PerfrenceManager().setbool("isloggedin", true);
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => MainScreen()),
     );
   }
 }

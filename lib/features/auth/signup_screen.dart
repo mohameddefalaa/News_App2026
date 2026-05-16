@@ -1,5 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:newsapp/core/Theme/light_colors.dart';
+import 'package:newsapp/data_source/local_data/prefrencemanger.dart';
+import 'package:newsapp/features/Home/Home_screen.dart';
 import 'package:newsapp/features/auth/widget/custome_textfiled.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -10,13 +14,16 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  late TextEditingController namecontroller;
+  late TextEditingController emailcontroller;
   late TextEditingController passworedcontroller;
   late TextEditingController confirmPassworedcontroller;
   late GlobalKey<FormState> key;
+
+  String? errormessage;
+  bool isLoading = false;
   @override
   void initState() {
-    namecontroller = TextEditingController();
+    emailcontroller = TextEditingController();
     passworedcontroller = TextEditingController();
     confirmPassworedcontroller = TextEditingController();
     key = GlobalKey<FormState>();
@@ -26,7 +33,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   void dispose() {
-    namecontroller.dispose();
+    emailcontroller.dispose();
     passworedcontroller.dispose();
     confirmPassworedcontroller.dispose();
     super.dispose();
@@ -94,7 +101,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         return null;
                       },
                       haintText: 'Email@mail.com',
-                      controller: namecontroller,
+                      controller: emailcontroller,
                     ),
                     const SizedBox(height: 12),
                     Text(
@@ -142,28 +149,35 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       haintText: "********",
                       controller: confirmPassworedcontroller,
                     ),
+                    errormessage != null
+                        ? Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Text(
+                              errormessage ?? "",
+                              style: TextTheme.of(context).displayMedium!
+                                  .copyWith(color: AppLightColor.primaryColor),
+                            ),
+                          )
+                        : SizedBox(),
                     const SizedBox(height: 20),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         fixedSize: Size(MediaQuery.sizeOf(context).width, 48),
                       ),
-                      onPressed: () {
+                      onPressed: () async {
                         setState(() {});
                         if (key.currentState!.validate()) {
-                          if (confirmPassworedcontroller.text ==
-                              passworedcontroller.text) {
-                            Navigator.pop(context);
-                          } else {
-                            return;
-                          }
+                          register();
                         } else {}
                       },
-                      child: Text(
-                        "Sign Up",
-                        style: TextTheme.of(
-                          context,
-                        ).displayMedium!.copyWith(color: Colors.white),
-                      ),
+                      child: isLoading
+                          ? CircularProgressIndicator()
+                          : Text(
+                              "Sign Up",
+                              style: TextTheme.of(
+                                context,
+                              ).displayMedium!.copyWith(color: Colors.white),
+                            ),
                     ),
                     const SizedBox(height: 24),
                     Row(
@@ -199,5 +213,45 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
       ),
     );
+  }
+
+  void register() async {
+    setState(() {
+      isLoading = true;
+      errormessage = null;
+    });
+    final savedEmail = PerfrenceManager().getstring("Saved_Email");
+    log(savedEmail ?? "");
+    log('---------');
+    log(emailcontroller.text);
+    if (savedEmail != null &&
+        savedEmail.trim().isNotEmpty &&
+        savedEmail.trim() == emailcontroller.text.trim()) {
+      log(savedEmail);
+      log('---------');
+      log(emailcontroller.text);
+      setState(() {
+        isLoading = false;
+        errormessage = "Sorry This Email Already Registered";
+      });
+    } else {
+      await PerfrenceManager().setstring(
+        "Saved_Email",
+        emailcontroller.text.trim(),
+      );
+      await PerfrenceManager().setstring(
+        "Saved_Password",
+        passworedcontroller.text,
+      );
+      await PerfrenceManager().setbool("isloggedin", true);
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => HomeScreen()),
+      );
+      setState(() {
+        errormessage = null;
+        isLoading = false;
+      });
+    }
   }
 }

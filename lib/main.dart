@@ -6,7 +6,6 @@ import 'package:newsapp/features/Splash/splach_screen.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await PerfrenceManager().init();
-
   runApp(const MyApp());
 }
 
