@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:newsapp/core/Theme/light_colors.dart';
 import 'package:newsapp/features/auth/widget/custome_textfiled.dart';
-import 'package:provider/provider.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -40,23 +39,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
-        body: SingleChildScrollView(
-          child: Container(
-            width: double.infinity,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                fit: BoxFit.fill,
-                image: AssetImage("assets/images/background_image.png"),
-              ),
+        body: Container(
+          height: double.infinity,
+          width: double.infinity,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/images/background_image.png"),
             ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Form(
-                key: key,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Form(
+              key: key,
+              child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SafeArea(child: const SizedBox(height: 155)),
+                    const SizedBox(height: 155),
                     Center(
                       child: Image.asset(
                         "assets/icons/app_logo.png",
@@ -79,6 +78,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                     const SizedBox(height: 8),
                     CustomeTextFiled(
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "Email mustn't be empty";
+                        }
+
+                        // هنا ننشئ كائن الـ RegExp ونفحص القيمة
+                        final emailRegex = RegExp(
+                          r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
+                        );
+                        if (!emailRegex.hasMatch(value)) {
+                          return "Please enter a valid email address";
+                        }
+
+                        return null;
+                      },
                       haintText: 'Email@mail.com',
                       controller: namecontroller,
                     ),
@@ -91,7 +105,26 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                     const SizedBox(height: 8),
                     CustomeTextFiled(
-                      confirmPassword: confirmPassworedcontroller.text,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "Password mustn't be empty";
+                        }
+
+                        // فحص الباسورد السهل (6 خانات على الأقل)
+                        final passwordRegex = RegExp(r"^[a-zA-Z0-9]{6,}$");
+                        if (!passwordRegex.hasMatch(value)) {
+                          return "Password must be at least 6 characters";
+                        }
+
+                        // شرط التطابق التبادلي القديم الذي صنعناه مع حقل التأكيد
+                        if (confirmPassworedcontroller.text.isNotEmpty &&
+                            value != confirmPassworedcontroller.text) {
+                          return "Passwords do not match";
+                        }
+
+                        return null;
+                      },
+
                       isbassword: true,
                       haintText: "********",
                       controller: passworedcontroller,
@@ -105,7 +138,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                     const SizedBox(height: 8),
                     CustomeTextFiled(
-                      confirmPassword: passworedcontroller.text,
                       isbassword: true,
                       haintText: "********",
                       controller: confirmPassworedcontroller,
@@ -138,7 +170,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "have an account ?",
+                          "Have an account ?",
                           style: TextTheme.of(context).displayMedium!.copyWith(
                             color: AppLightColor.textPrimary,
                             fontSize: 14,
