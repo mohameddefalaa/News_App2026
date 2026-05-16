@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 
 class CustomeTextFiled extends StatefulWidget {
-  CustomeTextFiled(
-    this.isbassword, {
+  const CustomeTextFiled({
     super.key,
     required this.haintText,
     required this.controller,
+    this.confirmPassword,
+    this.isbassword = false,
   });
   final String haintText;
-  bool isbassword = false;
-  TextEditingController controller;
+  final bool isbassword;
+  final TextEditingController controller;
+  final String? confirmPassword;
 
   @override
   State<CustomeTextFiled> createState() => _CustomeTextFiledState();
@@ -23,6 +25,9 @@ class _CustomeTextFiledState extends State<CustomeTextFiled> {
       validator: (value) {
         if (value == null || value.isEmpty) {
           return "This Filed Musn't be Empty ";
+        } else if (widget.confirmPassword != null &&
+            widget.confirmPassword != value) {
+          return "Passwords do not match";
         }
       },
       controller: widget.controller,

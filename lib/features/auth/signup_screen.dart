@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:newsapp/core/Theme/light_colors.dart';
-import 'package:newsapp/features/auth/signup_screen.dart';
 import 'package:newsapp/features/auth/widget/custome_textfiled.dart';
+import 'package:provider/provider.dart';
 
-class LogInScreen extends StatefulWidget {
-  const LogInScreen({super.key});
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({super.key});
 
   @override
-  State<LogInScreen> createState() => _LogInScreenState();
+  State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _LogInScreenState extends State<LogInScreen> {
+class _SignUpScreenState extends State<SignUpScreen> {
   late TextEditingController namecontroller;
   late TextEditingController passworedcontroller;
+  late TextEditingController confirmPassworedcontroller;
   late GlobalKey<FormState> key;
-
   @override
   void initState() {
     namecontroller = TextEditingController();
     passworedcontroller = TextEditingController();
+    confirmPassworedcontroller = TextEditingController();
     key = GlobalKey<FormState>();
 
     super.initState();
@@ -28,6 +29,7 @@ class _LogInScreenState extends State<LogInScreen> {
   void dispose() {
     namecontroller.dispose();
     passworedcontroller.dispose();
+    confirmPassworedcontroller.dispose();
     super.dispose();
   }
 
@@ -89,9 +91,24 @@ class _LogInScreenState extends State<LogInScreen> {
                     ),
                     const SizedBox(height: 8),
                     CustomeTextFiled(
+                      confirmPassword: confirmPassworedcontroller.text,
                       isbassword: true,
                       haintText: "********",
                       controller: passworedcontroller,
+                    ),
+                    const SizedBox(height: 12),
+                    Text(
+                      "Confirm Passward",
+                      style: TextTheme.of(context).displayMedium!.copyWith(
+                        color: AppLightColor.textPrimary,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    CustomeTextFiled(
+                      confirmPassword: passworedcontroller.text,
+                      isbassword: true,
+                      haintText: "********",
+                      controller: confirmPassworedcontroller,
                     ),
                     const SizedBox(height: 20),
                     ElevatedButton(
@@ -99,11 +116,18 @@ class _LogInScreenState extends State<LogInScreen> {
                         fixedSize: Size(MediaQuery.sizeOf(context).width, 48),
                       ),
                       onPressed: () {
+                        setState(() {});
                         if (key.currentState!.validate()) {
+                          if (confirmPassworedcontroller.text ==
+                              passworedcontroller.text) {
+                            Navigator.pop(context);
+                          } else {
+                            return;
+                          }
                         } else {}
                       },
                       child: Text(
-                        "Sign In",
+                        "Sign Up",
                         style: TextTheme.of(
                           context,
                         ).displayMedium!.copyWith(color: Colors.white),
@@ -114,7 +138,7 @@ class _LogInScreenState extends State<LogInScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "Don’t have an account ?",
+                          "have an account ?",
                           style: TextTheme.of(context).displayMedium!.copyWith(
                             color: AppLightColor.textPrimary,
                             fontSize: 14,
@@ -122,15 +146,10 @@ class _LogInScreenState extends State<LogInScreen> {
                         ),
                         TextButton(
                           onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => SignUpScreen(),
-                              ),
-                            );
+                            Navigator.pop(context);
                           },
                           child: Text(
-                            "Sign Up",
+                            "Sign in",
                             style: TextTheme.of(context).displayMedium!
                                 .copyWith(
                                   color: AppLightColor.primaryColor,
