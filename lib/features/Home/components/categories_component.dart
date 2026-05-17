@@ -3,8 +3,15 @@ import 'package:newsapp/core/Theme/light_colors.dart';
 import 'package:newsapp/features/Home/home_conrtoller.dart';
 import 'package:provider/provider.dart';
 
-class Categories extends StatelessWidget {
-  const Categories({super.key});
+class Categories extends StatefulWidget {
+  Categories({super.key});
+
+  @override
+  State<Categories> createState() => _CategoriesState();
+}
+
+class _CategoriesState extends State<Categories> {
+  String? selectedcategory;
 
   @override
   Widget build(BuildContext context) {
@@ -18,12 +25,35 @@ class Categories extends StatelessWidget {
               padding: EdgeInsets.only(right: 16),
               scrollDirection: Axis.horizontal,
               itemBuilder: (BuildContext context, int index) {
-                return Text(
-                  value.categories[index][0].toUpperCase() +
-                      value.categories[index].substring(1),
-                  style: TextTheme.of(
-                    context,
-                  ).displayMedium!.copyWith(color: AppLightColor.textPrimary),
+                final bool isSelected =
+                    selectedcategory == value.categories[index];
+                return InkWell(
+                  onTap: () {
+                    setState(() {
+                      selectedcategory = value.categories[index];
+                    });
+                  },
+                  child: IntrinsicWidth(
+                    child: Column(
+                      children: [
+                        Text(
+                          value.categories[index][0].toUpperCase() +
+                              value.categories[index].substring(1),
+                          style: TextTheme.of(context).displayMedium!.copyWith(
+                            color: AppLightColor.textPrimary,
+                          ),
+                        ),
+
+                        if (isSelected) ...[
+                          const SizedBox(height: 3),
+                          Container(
+                            color: AppLightColor.primaryColor,
+                            height: 2,
+                          ),
+                        ],
+                      ],
+                    ),
+                  ),
                 );
               },
               separatorBuilder: (BuildContext context, int index) {
