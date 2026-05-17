@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:intl/intl.dart';
 import 'package:newsapp/core/enumes/request_statues_enum.dart';
 import 'package:newsapp/data_source/remote_data/api_cpnfig.dart';
 import 'package:newsapp/data_source/remote_data/api_service.dart';
@@ -10,6 +11,7 @@ class HomeController with ChangeNotifier {
 
   RequestStatuesEnum everythingstatues = RequestStatuesEnum.loading;
   RequestStatuesEnum topHeadlinestatues = RequestStatuesEnum.loading;
+  int cureentindex = 0;
 
   String? errormessage;
   ApiService apiService = ApiService();
@@ -64,5 +66,36 @@ class HomeController with ChangeNotifier {
       notifyListeners();
     }
     notifyListeners();
+  }
+
+  void focuse(int index) {
+    cureentindex = index;
+    notifyListeners();
+  }
+
+  String formatTimeAgo(String? publishedAtStr) {
+    try {
+      if (publishedAtStr == null) return "";
+
+      Duration difference = DateTime.now().difference(
+        DateTime.parse(publishedAtStr).toLocal(),
+      );
+
+      if (difference.inSeconds < 60) {
+        return 'a second ago';
+      } else if (difference.inMinutes < 60) {
+        return ' ${difference.inMinutes}ago minute';
+      } else if (difference.inHours < 24) {
+        return ' ${difference.inHours}ago hour';
+      } else if (difference.inDays < 30) {
+        return ' ${difference.inDays} day ago';
+      } else {
+        return DateFormat(
+          'yyyy-MM-dd',
+        ).format(DateTime.parse(publishedAtStr).toLocal());
+      }
+    } catch (e) {
+      return 'unknown date';
+    }
   }
 }

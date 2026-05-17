@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:newsapp/core/Theme/light_colors.dart';
 import 'package:newsapp/core/enumes/request_statues_enum.dart';
+import 'package:newsapp/features/Home/components/source_data.dart';
 import 'package:newsapp/features/Home/home_conrtoller.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
@@ -28,7 +29,7 @@ class TrendingNews extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (BuildContext context, int index) {
                   final article = value.everyThingArticleList[index];
-                  var time = formatTimeAgo(article.publishedAt);
+                  var time = value.formatTimeAgo(article.publishedAt);
 
                   return Container(
                     clipBehavior: Clip.antiAlias,
@@ -74,43 +75,7 @@ class TrendingNews extends StatelessWidget {
                                       ),
                                 ),
                                 const SizedBox(height: 4),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        CircleAvatar(
-                                          radius: 13,
-                                          backgroundImage: NetworkImage(
-                                            article.urlToImage.toString(),
-                                          ),
-                                        ),
-                                        const SizedBox(width: 4),
-                                        Text(
-                                          article.source!.name,
-                                          style: TextTheme.of(context)
-                                              .displayMedium!
-                                              .copyWith(
-                                                fontSize: 14,
-                                                color:
-                                                    AppLightColor.primarytext,
-                                              ),
-                                        ),
-                                      ],
-                                    ),
-
-                                    Text(
-                                      time,
-                                      style: TextTheme.of(context)
-                                          .displayMedium!
-                                          .copyWith(
-                                            fontSize: 14,
-                                            color: AppLightColor.primarytext,
-                                          ),
-                                    ),
-                                  ],
-                                ),
+                                SourceData(article: article),
                               ],
                             ),
                           ),
@@ -124,31 +89,5 @@ class TrendingNews extends StatelessWidget {
         }
       },
     );
-  }
-}
-
-String formatTimeAgo(String? publishedAtStr) {
-  try {
-    if (publishedAtStr == null) return "";
-
-    Duration difference = DateTime.now().difference(
-      DateTime.parse(publishedAtStr).toLocal(),
-    );
-
-    if (difference.inSeconds < 60) {
-      return 'a second ago';
-    } else if (difference.inMinutes < 60) {
-      return ' ${difference.inMinutes}ago minute';
-    } else if (difference.inHours < 24) {
-      return ' ${difference.inHours}ago hour';
-    } else if (difference.inDays < 30) {
-      return ' ${difference.inDays} day ago';
-    } else {
-      return DateFormat(
-        'yyyy-MM-dd',
-      ).format(DateTime.parse(publishedAtStr).toLocal());
-    }
-  } catch (e) {
-    return 'unknown date';
   }
 }
