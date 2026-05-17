@@ -42,6 +42,19 @@ class TrendingNews extends StatelessWidget {
                     ),
                     child: Stack(
                       children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: AlignmentGeometry.topCenter,
+                              end: AlignmentGeometry.bottomCenter,
+                              colors: [
+                                Colors.black.withValues(alpha: 0.5),
+                                Colors.black12.withValues(alpha: 0.7),
+                              ],
+                            ),
+                          ),
+                        ),
+
                         Positioned.fill(
                           top: 40,
                           child: Padding(
