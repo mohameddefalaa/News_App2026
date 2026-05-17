@@ -60,4 +60,8 @@ ThemeData lightTheme = ThemeData(
       borderSide: BorderSide(color: Colors.white),
     ),
   ),
+
+  progressIndicatorTheme: ProgressIndicatorThemeData(
+    color: AppLightColor.progresindicator,
+  ),
 );
