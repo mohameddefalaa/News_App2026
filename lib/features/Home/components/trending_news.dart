@@ -3,6 +3,7 @@ import 'package:newsapp/core/Theme/light_colors.dart';
 import 'package:newsapp/core/enumes/request_statues_enum.dart';
 import 'package:newsapp/features/Home/home_conrtoller.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 
 class TrendingNews extends StatelessWidget {
   const TrendingNews({super.key});
@@ -27,6 +28,7 @@ class TrendingNews extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (BuildContext context, int index) {
                   final article = value.everyThingArticleList[index];
+                  var time = formatTimeAgo(article.publishedAt);
 
                   return Container(
                     clipBehavior: Clip.antiAlias,
@@ -60,6 +62,7 @@ class TrendingNews extends StatelessWidget {
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   maxLines: 2,
@@ -72,16 +75,39 @@ class TrendingNews extends StatelessWidget {
                                 ),
                                 const SizedBox(height: 4),
                                 Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
-                                    CircleAvatar(
-                                      backgroundColor:
-                                          AppLightColor.primarytext,
-                                      radius: 15,
-                                      child: Image.asset(
-                                        height: 5.58,
-                                        width: 12,
-                                        "assets/icons/cnn.png",
-                                      ),
+                                    Row(
+                                      children: [
+                                        CircleAvatar(
+                                          radius: 13,
+                                          backgroundImage: NetworkImage(
+                                            article.urlToImage.toString(),
+                                          ),
+                                        ),
+                                        const SizedBox(width: 4),
+                                        Text(
+                                          article.source!.name,
+                                          style: TextTheme.of(context)
+                                              .displayMedium!
+                                              .copyWith(
+                                                fontSize: 14,
+                                                color:
+                                                    AppLightColor.primarytext,
+                                              ),
+                                        ),
+                                      ],
+                                    ),
+
+                                    Text(
+                                      time,
+                                      style: TextTheme.of(context)
+                                          .displayMedium!
+                                          .copyWith(
+                                            fontSize: 14,
+                                            color: AppLightColor.primarytext,
+                                          ),
                                     ),
                                   ],
                                 ),
@@ -98,5 +124,30 @@ class TrendingNews extends StatelessWidget {
         }
       },
     );
+  }
+}
+
+String formatTimeAgo(String publishedAtStr) {
+  try {
+    DateTime publishedAt = DateTime.parse(
+      publishedAtStr,
+    ).toLocal(); // .toLocal() عشان يحولها لتوقيت مصر المحلي
+    DateTime now = DateTime.now();
+
+    Duration difference = now.difference(publishedAt);
+
+    if (difference.inSeconds < 60) {
+      return 'منذ ثوانٍ';
+    } else if (difference.inMinutes < 60) {
+      return ' ${difference.inMinutes}ago minute';
+    } else if (difference.inHours < 24) {
+      return ' ${difference.inHours}ago hour';
+    } else if (difference.inDays < 30) {
+      return ' ${difference.inDays} day ago';
+    } else {
+      return DateFormat('yyyy-MM-dd').format(publishedAt);
+    }
+  } catch (e) {
+    return 'unknown date';
   }
 }
