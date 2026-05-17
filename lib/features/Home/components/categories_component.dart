@@ -3,15 +3,8 @@ import 'package:newsapp/core/Theme/light_colors.dart';
 import 'package:newsapp/features/Home/home_conrtoller.dart';
 import 'package:provider/provider.dart';
 
-class Categories extends StatefulWidget {
-  Categories({super.key});
-
-  @override
-  State<Categories> createState() => _CategoriesState();
-}
-
-class _CategoriesState extends State<Categories> {
-  String? selectedcategory;
+class Categories extends StatelessWidget {
+  const Categories({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,12 +19,10 @@ class _CategoriesState extends State<Categories> {
               scrollDirection: Axis.horizontal,
               itemBuilder: (BuildContext context, int index) {
                 final bool isSelected =
-                    selectedcategory == value.categories[index];
+                    value.selectedcategory == value.categories[index];
                 return InkWell(
                   onTap: () {
-                    setState(() {
-                      selectedcategory = value.categories[index];
-                    });
+                    value.updatedSelectedCategory(index);
                   },
                   child: IntrinsicWidth(
                     child: Column(

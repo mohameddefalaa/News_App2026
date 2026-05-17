@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
 import 'package:newsapp/core/enumes/request_statues_enum.dart';
@@ -13,7 +15,7 @@ class HomeController with ChangeNotifier {
   RequestStatuesEnum topHeadlinestatues = RequestStatuesEnum.loading;
   int cureentindex = 0;
   List<String> categories = [
-    " business",
+    "business",
     "entertainment",
     "general",
     "health",
@@ -21,21 +23,31 @@ class HomeController with ChangeNotifier {
     "sports",
     "technology",
   ];
+  String? selectedcategory;
 
   String? errormessage;
   ApiService apiService = ApiService();
 
   void init() {
     callEveryThing();
-    callTopHeadLines();
+    callTopHeadLines(null);
   }
 
   //("",params:  {})
-  void callTopHeadLines() async {
+  void callTopHeadLines(String? category) async {
     try {
+      Map<String, dynamic> queryParams = {"country": "us"};
+
+      if (category != null) {
+        queryParams = {"category": "$category"};
+
+        log(queryParams.hashCode.toString());
+        //queryParams["category"] = category;
+      }
+
       final result = await apiService.get(
         ApiCpnfig.topheadlines,
-        params: {"country": "us"},
+        params: queryParams,
       );
       final decodingArticles = result['articles'] as List<dynamic>;
 
@@ -106,5 +118,11 @@ class HomeController with ChangeNotifier {
     } catch (e) {
       return 'unknown date';
     }
+  }
+
+  void updatedSelectedCategory(int index) {
+    selectedcategory = categories[index];
+    callTopHeadLines(categories[index]);
+    notifyListeners();
   }
 }

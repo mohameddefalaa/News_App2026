@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:newsapp/core/Theme/light_colors.dart';
-import 'package:newsapp/core/enumes/request_statues_enum.dart';
 import 'package:newsapp/features/Home/components/categories_component.dart';
 import 'package:newsapp/features/Home/components/source_data.dart';
 import 'package:newsapp/features/Home/components/trending_news.dart';
