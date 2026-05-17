@@ -12,6 +12,15 @@ class HomeController with ChangeNotifier {
   RequestStatuesEnum everythingstatues = RequestStatuesEnum.loading;
   RequestStatuesEnum topHeadlinestatues = RequestStatuesEnum.loading;
   int cureentindex = 0;
+  List<String> categories = [
+    " business",
+    "entertainment",
+    "general",
+    "health",
+    "science",
+    "sports",
+    "technology",
+  ];
 
   String? errormessage;
   ApiService apiService = ApiService();

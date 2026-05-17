@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:newsapp/core/Theme/light_colors.dart';
 import 'package:newsapp/core/enumes/request_statues_enum.dart';
+import 'package:newsapp/features/Home/components/categories_component.dart';
 import 'package:newsapp/features/Home/components/source_data.dart';
 import 'package:newsapp/features/Home/components/trending_news.dart';
 import 'package:newsapp/features/Home/components/view_all_copmponent.dart';
@@ -59,27 +60,7 @@ class HomeScreen extends StatelessWidget {
                   onPressed: () {},
                   color: AppLightColor.textPrimary,
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 8.0, bottom: 8),
-                  child: SizedBox(
-                    height: 40,
-                    child: ListView.separated(
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Text(
-                          categories[index],
-                          style: TextTheme.of(context).displayMedium!.copyWith(
-                            color: AppLightColor.textPrimary,
-                          ),
-                        );
-                      },
-                      separatorBuilder: (BuildContext context, int index) {
-                        return SizedBox(width: 12);
-                      },
-                      itemCount: categories.length,
-                    ),
-                  ),
-                ),
+                Categories(),
                 Expanded(
                   child: ListView.builder(
                     padding: EdgeInsets.zero,
@@ -119,6 +100,7 @@ class HomeScreen extends StatelessWidget {
                           article: areticle,
                           color: AppLightColor.textPrimary,
                         ),
+                        trailing: Icon(Icons.bookmark),
                       );
                     },
                   ),
@@ -131,13 +113,3 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
-
-List<String> categories = [
-  " business",
-  "entertainment",
-  "general",
-  "health",
-  "science",
-  "sports",
-  "technology",
-];
