@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:newsapp/core/Theme/light_colors.dart';
 import 'package:newsapp/features/Home/components/trending_news.dart';
+import 'package:newsapp/features/Home/components/view_all_copmponent.dart';
 import 'package:newsapp/features/Home/home_conrtoller.dart';
 import 'package:provider/provider.dart';
 
@@ -19,7 +20,7 @@ class HomeScreen extends StatelessWidget {
             body: Column(
               children: [
                 SizedBox(
-                  height: 350,
+                  height: 320,
                   child: Stack(
                     children: [
                       SizedBox(
@@ -43,47 +44,18 @@ class HomeScreen extends StatelessWidget {
                                   ),
                             ),
                             const SizedBox(height: 20),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 16.0,
-                              ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    "Trending News",
-                                    style: TextTheme.of(context).titleMedium!
-                                        .copyWith(
-                                          color: AppLightColor.primarytext,
-                                          fontSize: 16,
-                                        ),
-                                  ),
-                                  TextButton(
-                                    onPressed: () {},
-                                    child: Text(
-                                      "View all",
-                                      style: TextTheme.of(context)
-                                          .displayMedium!
-                                          .copyWith(
-                                            color: AppLightColor.primarytext,
-                                            fontSize: 14,
-                                            decoration:
-                                                TextDecoration.underline,
-                                            decorationColor:
-                                                AppLightColor.primarytext,
-                                          ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
+                            ViewAll(text: 'Trending News', onPressed: () {}),
                             TrendingNews(),
                           ],
                         ),
                       ),
                     ],
                   ),
+                ),
+                ViewAll(
+                  text: "Categories",
+                  onPressed: () {},
+                  color: AppLightColor.textPrimary,
                 ),
               ],
             ),
