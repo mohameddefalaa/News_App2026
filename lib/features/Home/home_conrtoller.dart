@@ -7,9 +7,9 @@ import 'package:newsapp/models/news_article_model.dart';
 class HomeController with ChangeNotifier {
   List<NewsArticleModel> topHEadArticleList = [];
   List<NewsArticleModel> everyThingArticleList = [];
-  bool isTopHealineLoading = true;
 
   RequestStatuesEnum everythingstatues = RequestStatuesEnum.loading;
+  RequestStatuesEnum topHeadlinestatues = RequestStatuesEnum.loading;
 
   String? errormessage;
   ApiService apiService = ApiService();
@@ -31,11 +31,13 @@ class HomeController with ChangeNotifier {
       topHEadArticleList = decodingArticles.map((e) {
         return NewsArticleModel.fromjson(e);
       }).toList();
-      isTopHealineLoading = false;
+      topHeadlinestatues = RequestStatuesEnum.loaded;
       errormessage = null;
+      notifyListeners();
     } catch (e) {
-      isTopHealineLoading = false;
+      topHeadlinestatues = RequestStatuesEnum.error;
       errormessage = e.toString();
+      notifyListeners();
     }
 
     notifyListeners();
