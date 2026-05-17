@@ -24,7 +24,7 @@ class TrendingNews extends StatelessWidget {
                 separatorBuilder: (BuildContext context, int index) {
                   return SizedBox(width: 8);
                 },
-                itemCount: value.everyThingArticleList.length,
+                itemCount: value.everyThingArticleList.take(8).length,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (BuildContext context, int index) {
                   final article = value.everyThingArticleList[index];
@@ -127,17 +127,16 @@ class TrendingNews extends StatelessWidget {
   }
 }
 
-String formatTimeAgo(String publishedAtStr) {
+String formatTimeAgo(String? publishedAtStr) {
   try {
-    DateTime publishedAt = DateTime.parse(
-      publishedAtStr,
-    ).toLocal(); // .toLocal() عشان يحولها لتوقيت مصر المحلي
-    DateTime now = DateTime.now();
+    if (publishedAtStr == null) return "";
 
-    Duration difference = now.difference(publishedAt);
+    Duration difference = DateTime.now().difference(
+      DateTime.parse(publishedAtStr).toLocal(),
+    );
 
     if (difference.inSeconds < 60) {
-      return 'منذ ثوانٍ';
+      return 'a second ago';
     } else if (difference.inMinutes < 60) {
       return ' ${difference.inMinutes}ago minute';
     } else if (difference.inHours < 24) {
@@ -145,7 +144,9 @@ String formatTimeAgo(String publishedAtStr) {
     } else if (difference.inDays < 30) {
       return ' ${difference.inDays} day ago';
     } else {
-      return DateFormat('yyyy-MM-dd').format(publishedAt);
+      return DateFormat(
+        'yyyy-MM-dd',
+      ).format(DateTime.parse(publishedAtStr).toLocal());
     }
   } catch (e) {
     return 'unknown date';
