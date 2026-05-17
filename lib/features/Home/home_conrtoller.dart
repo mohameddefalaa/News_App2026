@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:newsapp/core/enumes/request_statues_enum.dart';
 import 'package:newsapp/data_source/remote_data/api_cpnfig.dart';
 import 'package:newsapp/data_source/remote_data/api_service.dart';
 import 'package:newsapp/models/news_article_model.dart';
@@ -7,7 +8,8 @@ class HomeController with ChangeNotifier {
   List<NewsArticleModel> topHEadArticleList = [];
   List<NewsArticleModel> everyThingArticleList = [];
   bool isTopHealineLoading = true;
-  bool isEveryThingLoading = true;
+
+  RequestStatuesEnum everythingstatues = RequestStatuesEnum.loading;
 
   String? errormessage;
   ApiService apiService = ApiService();
@@ -43,19 +45,21 @@ class HomeController with ChangeNotifier {
     try {
       final result = await apiService.get(
         ApiCpnfig.everything,
-        params: {"q": "sports"},
+        params: {"q": "Ai"},
       );
       final decodingArticles = result[ApiCpnfig.articles] as List<dynamic>;
 
       everyThingArticleList = decodingArticles.map((e) {
         return NewsArticleModel.fromjson(e);
       }).toList();
+      everythingstatues = RequestStatuesEnum.loaded;
 
-      isEveryThingLoading = false;
       errormessage = null;
+      notifyListeners();
     } catch (e) {
-      isEveryThingLoading = false;
+      everythingstatues = RequestStatuesEnum.error;
       errormessage = e.toString();
+      notifyListeners();
     }
     notifyListeners();
   }
