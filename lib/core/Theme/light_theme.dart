@@ -19,9 +19,18 @@ ThemeData lightTheme = ThemeData(
       color: AppLightColor.textDescColor,
       fontFamily: "Times New Roman",
     ),
+    titleSmall: TextStyle(
+      fontWeight: FontWeight.w700,
+      fontSize: 14,
+      letterSpacing: 0,
+      color: AppLightColor.primarytext,
+      fontFamily: "Schibsted Grotesk",
+    ),
   ),
   textButtonTheme: TextButtonThemeData(
     style: TextButton.styleFrom(
+      padding: EdgeInsets.zero,
+      overlayColor: Colors.transparent,
       foregroundColor: AppLightColor.primaryColor,
       textStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
     ),

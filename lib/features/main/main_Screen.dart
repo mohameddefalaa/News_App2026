@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:newsapp/features/Home/Home_screen.dart';
-import 'package:newsapp/features/Home/bookmark/bookmark_screen.dart';
+import 'package:newsapp/features/bookmark/bookmark_screen.dart';
 import 'package:newsapp/features/profile/profile_screen.dart';
 import 'package:newsapp/features/search/search_screen.dart';
 

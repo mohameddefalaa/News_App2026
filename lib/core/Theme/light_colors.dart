@@ -10,4 +10,5 @@ abstract class AppLightColor {
   static const Color bottomNavBarBackground = Color(0xffF5F5F5);
   static const Color textsecondart = Color(0xff363636);
   static const Color textPrimary = Color(0xff141414);
+  static const Color primarytext = Color(0xffFFFCFC);
 }

@@ -43,7 +43,7 @@ class HomeController with ChangeNotifier {
     try {
       final result = await apiService.get(
         ApiCpnfig.everything,
-        params: {"q": "news"},
+        params: {"q": "sports"},
       );
       final decodingArticles = result[ApiCpnfig.articles] as List<dynamic>;
 
