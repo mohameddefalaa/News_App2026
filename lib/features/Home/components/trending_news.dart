@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:newsapp/core/Theme/light_colors.dart';
 import 'package:newsapp/core/enumes/request_statues_enum.dart';
@@ -38,13 +39,30 @@ class TrendingNews extends StatelessWidget {
                     width: 235,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
-                      image: DecorationImage(
-                        image: NetworkImage(article.urlToImage),
-                        fit: BoxFit.cover,
-                      ),
                     ),
                     child: Stack(
                       children: [
+                        CachedNetworkImage(
+                          height: 140,
+                          width: 235,
+                          fit: BoxFit.cover,
+                          imageUrl: article.urlToImage,
+                          progressIndicatorBuilder:
+                              (context, url, downloadProgress) => SizedBox(
+                                height: 25,
+                                width: 25,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 0.5,
+                                  value: downloadProgress.progress,
+                                ),
+                              ),
+                          errorWidget: (context, url, error) => Image.asset(
+                            height: 68,
+                            width: 122,
+                            fit: BoxFit.cover,
+                            "assets/images/null.webp",
+                          ),
+                        ),
                         Container(
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
