@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:newsapp/core/Theme/light_colors.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -9,10 +10,19 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   @override
-  @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(
+          "Search",
+          style: TextTheme.of(context).titleMedium!.copyWith(
+            fontSize: 16,
+            color: AppLightColor.textPrimary,
+          ),
+        ),
+      ),
+      body: Container(),
+    );
   }
-
-  void _navigatAfterSplashScreen() {}
 }

@@ -64,4 +64,5 @@ ThemeData lightTheme = ThemeData(
   progressIndicatorTheme: ProgressIndicatorThemeData(
     color: AppLightColor.progresindicator,
   ),
+  appBarTheme: AppBarThemeData(backgroundColor: AppLightColor.appbarbackground),
 );

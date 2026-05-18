@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:newsapp/core/Theme/light_colors.dart';
-import 'package:newsapp/core/widgets/custome_cash_networkImage.dart';
-import 'package:newsapp/features/Home/components/source_data.dart';
 import 'package:shimmer/shimmer.dart';
 
 class TrendingShimmer extends StatelessWidget {
