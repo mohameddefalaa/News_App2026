@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:newsapp/core/Theme/light_colors.dart';
 import 'package:newsapp/core/enumes/request_statues_enum.dart';
+import 'package:newsapp/core/extensions/date_formate_extension.dart';
 import 'package:newsapp/features/Home/components/source_data.dart';
 import 'package:newsapp/features/Home/home_conrtoller.dart';
 import 'package:provider/provider.dart';
@@ -30,7 +31,9 @@ class TrendingNews extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (BuildContext context, int index) {
                   final article = value.everyThingArticleList[index];
-                  var time = value.formatTimeAgo(article.publishedAt);
+                  var time = article.publishedAt.formatTimeAgo(
+                    article.publishedAt,
+                  );
 
                   return Container(
                     clipBehavior: Clip.antiAlias,

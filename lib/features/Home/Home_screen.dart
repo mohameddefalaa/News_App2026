@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:newsapp/core/Theme/light_colors.dart';
 import 'package:newsapp/core/enumes/request_statues_enum.dart';
+import 'package:newsapp/core/extensions/date_formate_extension.dart';
 import 'package:newsapp/features/Home/components/categories_component.dart';
 import 'package:newsapp/features/Home/components/header.dart';
 import 'package:newsapp/features/Home/components/source_data.dart';
@@ -139,9 +140,10 @@ class HomeScreen extends StatelessWidget {
 
                                               const SizedBox(width: 8),
                                               Text(
-                                                value.formatTimeAgo(
-                                                  areticle.publishedAt,
-                                                ),
+                                                areticle.publishedAt
+                                                    .formatTimeAgo(
+                                                      areticle.publishedAt,
+                                                    ),
                                                 style: TextTheme.of(context)
                                                     .displayMedium!
                                                     .copyWith(

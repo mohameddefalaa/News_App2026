@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:newsapp/core/Theme/light_colors.dart';
+import 'package:newsapp/core/extensions/date_formate_extension.dart';
 import 'package:newsapp/features/Home/home_conrtoller.dart';
 import 'package:newsapp/models/news_article_model.dart';
 import 'package:provider/provider.dart';
@@ -20,7 +21,7 @@ class SourceData extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<HomeController>(
       builder: (BuildContext context, value, Widget? child) {
-        var time = value.formatTimeAgo(article.publishedAt);
+        var time = article.publishedAt.formatTimeAgo(article.publishedAt);
 
         return Row(
           mainAxisSize: MainAxisSize.min,
