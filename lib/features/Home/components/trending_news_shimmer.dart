@@ -23,7 +23,19 @@ class TrendingShimmer extends StatelessWidget {
           width: 235,
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
           child: Shimmer.fromColors(
-            child: Container(height: 140, width: 235, color: Colors.white),
+            child: Column(
+              children: [
+                Container(height: 140, width: 235, color: Colors.white),
+
+                Container(
+                  width: double.infinity,
+                  height: 14,
+                  color: Colors.white,
+                ),
+                const SizedBox(height: 6),
+                Container(width: 150, height: 14, color: Colors.white),
+              ],
+            ),
             baseColor: Colors.grey.shade300,
             highlightColor: Colors.grey.shade100,
           ),

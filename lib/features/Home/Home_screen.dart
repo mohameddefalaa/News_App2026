@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:newsapp/core/Theme/light_colors.dart';
 import 'package:newsapp/core/enumes/request_statues_enum.dart';
+import 'package:newsapp/features/Home/categories_Screen.dart';
 import 'package:newsapp/features/Home/components/categories_component.dart';
 import 'package:newsapp/features/Home/components/header.dart';
 import 'package:newsapp/features/Home/components/topheadline.dart';
 import 'package:newsapp/features/Home/components/toppheadline_shimmer.dart';
+import 'package:newsapp/features/Home/components/view_all_copmponent.dart';
 import 'package:newsapp/features/Home/home_conrtoller.dart';
 import 'package:provider/provider.dart';
 
@@ -21,6 +24,20 @@ class HomeScreen extends StatelessWidget {
             body: CustomScrollView(
               slivers: [
                 Header(),
+                SliverToBoxAdapter(
+                  child: ViewAll(
+                    text: "Categories",
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => CategoriesScreen(),
+                        ),
+                      );
+                    },
+                    color: AppLightColor.textPrimary,
+                  ),
+                ),
                 SliverToBoxAdapter(child: CategoriesList()),
                 switch (value.topHeadlinestatues) {
                   RequestStatuesEnum.loading => TopHeadLineShimmer(),

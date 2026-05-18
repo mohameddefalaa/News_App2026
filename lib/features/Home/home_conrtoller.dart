@@ -35,6 +35,7 @@ class HomeController with ChangeNotifier {
   //("",params:  {})
   void callTopHeadLines(String? category) async {
     try {
+      Future.delayed(Duration(seconds: 5));
       Map<String, dynamic> queryParams = {"country": "us"};
 
       if (category != null) {
@@ -66,6 +67,8 @@ class HomeController with ChangeNotifier {
   }
 
   void callEveryThing() async {
+    Future.delayed(Duration(minutes: 1));
+
     try {
       final result = await apiService.get(
         ApiCpnfig.everything,
