@@ -31,7 +31,10 @@ class HomeScreen extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => CategoriesScreen(),
+                          builder: (_) => ChangeNotifierProvider.value(
+                            value: context.watch<HomeController>(),
+                            child: CategoriesScreen(),
+                          ),
                         ),
                       );
                     },

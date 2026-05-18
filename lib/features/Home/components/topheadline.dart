@@ -66,7 +66,7 @@ class TopHeadline extends StatelessWidget {
                                           ),
                                     ),
 
-                                    const SizedBox(width: 8),
+                                    const SizedBox(width: 6),
                                     Text(
                                       areticle.publishedAt.formatTimeAgo(
                                         areticle.publishedAt,

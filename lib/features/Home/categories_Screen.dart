@@ -13,13 +13,8 @@ class CategoriesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (BuildContext context) {
-        return HomeController()..callTopHeadLines(null);
-      },
-      builder: (context, child) {
-        final controller = context.watch<HomeController>();
-
+    return Consumer<HomeController>(
+      builder: (BuildContext context, value, Widget? child) {
         return Scaffold(
           appBar: AppBar(
             backgroundColor: AppLightColor.appbarbackground,
@@ -37,9 +32,9 @@ class CategoriesScreen extends StatelessWidget {
               CategoriesList(),
               Expanded(
                 child: ListView.builder(
-                  itemCount: controller.topHEadArticleList.length,
+                  itemCount: value.topHEadArticleList.length,
                   itemBuilder: (BuildContext context, int index) {
-                    var areticle = controller.topHEadArticleList[index];
+                    var areticle = value.topHEadArticleList[index];
                     return Padding(
                       padding: const EdgeInsets.only(
                         left: 16,
