@@ -7,6 +7,7 @@ import 'package:newsapp/core/extensions/date_formate_extension.dart';
 import 'package:newsapp/features/Home/components/categories_component.dart';
 import 'package:newsapp/features/Home/components/header.dart';
 import 'package:newsapp/features/Home/components/source_data.dart';
+import 'package:newsapp/features/Home/components/topheadline.dart';
 import 'package:newsapp/features/Home/components/trending_news.dart';
 import 'package:newsapp/features/Home/components/view_all_copmponent.dart';
 import 'package:newsapp/features/Home/home_conrtoller.dart';
@@ -27,16 +28,8 @@ class HomeScreen extends StatelessWidget {
             body: CustomScrollView(
               slivers: [
                 Header(),
-                SliverToBoxAdapter(
-                  child: ViewAll(
-                    text: "Categories",
-                    onPressed: () {},
-                    color: AppLightColor.textPrimary,
-                  ),
-                ),
-                SliverToBoxAdapter(child: Categories()),
+                SliverToBoxAdapter(child: CategoriesList()),
                 switch (value.topHeadlinestatues) {
-                  // TODO: Handle this case.
                   RequestStatuesEnum.loading => SliverToBoxAdapter(
                     child: Center(child: CircularProgressIndicator()),
                   ),
@@ -50,126 +43,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
 
-                  RequestStatuesEnum.loaded => SliverList.builder(
-                    itemCount: value.topHEadArticleList.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      var areticle = value.topHEadArticleList[index];
-                      return Padding(
-                        padding: const EdgeInsets.only(
-                          left: 16,
-                          bottom: 12,
-                          right: 12,
-                        ),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadiusGeometry.circular(8),
-                              child: SizedBox(
-                                height: 80,
-                                width: 140,
-                                child: CachedNetworkImage(
-                                  imageUrl: areticle.urlToImage,
-                                  fit: BoxFit.cover,
-                                  progressIndicatorBuilder:
-                                      (context, url, progress) {
-                                        return CircularProgressIndicator();
-                                      },
-                                  errorWidget: (context, url, error) =>
-                                      Image.asset("assets/images/null.webp"),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.only(left: 8),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      maxLines: 2,
-                                      areticle.title,
-                                      style: TextTheme.of(context)
-                                          .displayMedium!
-                                          .copyWith(
-                                            color: AppLightColor.textPrimary,
-                                          ),
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        CircleAvatar(
-                                          radius: 10,
-                                          backgroundImage:
-                                              areticle.urlToImage.isEmpty
-                                              ? AssetImage(
-                                                  "assets/images/null.webp",
-                                                )
-                                              : NetworkImage(
-                                                  areticle.urlToImage,
-                                                ),
-                                        ),
-                                        const SizedBox(width: 4),
-                                        Expanded(
-                                          child: Row(
-                                            children: [
-                                              Text(
-                                                maxLines: 1,
-                                                overflow: TextOverflow.ellipsis,
-                                                areticle.source!.name.substring(
-                                                  0,
-                                                  min(
-                                                    areticle
-                                                        .source!
-                                                        .name
-                                                        .length,
-                                                    10,
-                                                  ),
-                                                ),
-                                                style: TextTheme.of(context)
-                                                    .displayMedium!
-                                                    .copyWith(
-                                                      fontSize: 14,
-                                                      color: AppLightColor
-                                                          .textPrimary,
-                                                    ),
-                                              ),
-
-                                              const SizedBox(width: 8),
-                                              Text(
-                                                areticle.publishedAt
-                                                    .formatTimeAgo(
-                                                      areticle.publishedAt,
-                                                    ),
-                                                style: TextTheme.of(context)
-                                                    .displayMedium!
-                                                    .copyWith(
-                                                      fontSize: 14,
-                                                      color: AppLightColor
-                                                          .textsecondry,
-                                                    ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        IconButton(
-                                          onPressed: () {},
-                                          icon: Icon(Icons.bookmark_border),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                  ),
+                  RequestStatuesEnum.loaded => TopHeadline(),
                 },
               ],
             ),
