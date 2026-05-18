@@ -3,6 +3,7 @@ import 'package:newsapp/core/Theme/light_colors.dart';
 import 'package:newsapp/core/enumes/request_statues_enum.dart';
 import 'package:newsapp/core/widgets/custome_cash_networkImage.dart';
 import 'package:newsapp/features/Home/components/source_data.dart';
+import 'package:newsapp/features/Home/components/trending_news_shimmer.dart';
 import 'package:newsapp/features/Home/home_conrtoller.dart';
 import 'package:provider/provider.dart';
 
@@ -15,7 +16,9 @@ class TrendingNews extends StatelessWidget {
       builder: (BuildContext context, value, Widget? child) {
         switch (value.everythingstatues) {
           case RequestStatuesEnum.loading:
-            return Center(child: CircularProgressIndicator());
+            return Center(
+              child: SizedBox(height: 145, child: TrendingShimmer()),
+            );
           case RequestStatuesEnum.error:
             return Center(child: Text(value.errormessage!));
           case RequestStatuesEnum.loaded:

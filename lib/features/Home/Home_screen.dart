@@ -1,18 +1,11 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:newsapp/core/Theme/light_colors.dart';
 import 'package:newsapp/core/enumes/request_statues_enum.dart';
-import 'package:newsapp/core/extensions/date_formate_extension.dart';
 import 'package:newsapp/features/Home/components/categories_component.dart';
 import 'package:newsapp/features/Home/components/header.dart';
-import 'package:newsapp/features/Home/components/source_data.dart';
 import 'package:newsapp/features/Home/components/topheadline.dart';
-import 'package:newsapp/features/Home/components/trending_news.dart';
-import 'package:newsapp/features/Home/components/view_all_copmponent.dart';
+import 'package:newsapp/features/Home/components/toppheadline_shimmer.dart';
 import 'package:newsapp/features/Home/home_conrtoller.dart';
 import 'package:provider/provider.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -30,9 +23,7 @@ class HomeScreen extends StatelessWidget {
                 Header(),
                 SliverToBoxAdapter(child: CategoriesList()),
                 switch (value.topHeadlinestatues) {
-                  RequestStatuesEnum.loading => SliverToBoxAdapter(
-                    child: Center(child: CircularProgressIndicator()),
-                  ),
+                  RequestStatuesEnum.loading => TopHeadLineShimmer(),
 
                   RequestStatuesEnum.error => SliverToBoxAdapter(
                     child: Center(

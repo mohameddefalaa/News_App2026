@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
-import 'package:intl/intl.dart';
 import 'package:newsapp/core/enumes/request_statues_enum.dart';
 import 'package:newsapp/data_source/remote_data/api_cpnfig.dart';
 import 'package:newsapp/data_source/remote_data/api_service.dart';

@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 
 class CustomeCashNetwork extends StatelessWidget {
   const CustomeCashNetwork({
@@ -21,7 +22,15 @@ class CustomeCashNetwork extends StatelessWidget {
         imageUrl: imagepath,
         fit: BoxFit.cover,
         progressIndicatorBuilder: (context, url, progress) {
-          return CircularProgressIndicator();
+          return Shimmer.fromColors(
+            child: Container(
+              height: height ?? 80,
+              width: width ?? 140,
+              color: Colors.white,
+            ),
+            baseColor: Colors.grey.shade300,
+            highlightColor: Colors.grey.shade100,
+          );
         },
         errorWidget: (context, url, error) =>
             Image.asset("assets/images/null.webp"),
