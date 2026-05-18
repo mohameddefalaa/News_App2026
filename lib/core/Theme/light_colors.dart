@@ -12,4 +12,5 @@ abstract class AppLightColor {
   static const Color textPrimary = Color(0xff141414);
   static const Color primarytext = Color(0xffFFFCFC);
   static const Color progresindicator = Color(0xffC53030);
+  static const Color textsecondry = Color(0xff363636);
 }

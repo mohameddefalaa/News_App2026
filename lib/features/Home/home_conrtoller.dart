@@ -105,11 +105,11 @@ class HomeController with ChangeNotifier {
       if (difference.inSeconds < 60) {
         return 'a second ago';
       } else if (difference.inMinutes < 60) {
-        return ' ${difference.inMinutes}ago minute';
+        return '${difference.inMinutes}m ago';
       } else if (difference.inHours < 24) {
-        return ' ${difference.inHours}ago hour';
+        return '${difference.inHours}h ago';
       } else if (difference.inDays < 30) {
-        return ' ${difference.inDays} day ago';
+        return '${difference.inDays}d ago';
       } else {
         return DateFormat(
           'yyyy-MM-dd',

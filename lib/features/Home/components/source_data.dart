@@ -5,10 +5,16 @@ import 'package:newsapp/models/news_article_model.dart';
 import 'package:provider/provider.dart';
 
 class SourceData extends StatelessWidget {
-  const SourceData({super.key, required this.article, this.color});
+  const SourceData({
+    super.key,
+    required this.article,
+    this.sourcedatacolor,
+    this.timrcolor,
+  });
 
   final NewsArticleModel article;
-  final Color? color;
+  final Color? sourcedatacolor;
+  final Color? timrcolor;
 
   @override
   Widget build(BuildContext context) {
@@ -19,14 +25,14 @@ class SourceData extends StatelessWidget {
         return Row(
           mainAxisSize: MainAxisSize.min,
 
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Expanded(
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   CircleAvatar(
-                    radius: 13,
+                    radius: 10,
                     backgroundImage: article.urlToImage.isEmpty
                         ? AssetImage("assets/images/null.webp")
                         : NetworkImage(article.urlToImage),
@@ -39,7 +45,7 @@ class SourceData extends StatelessWidget {
                       article.source!.name,
                       style: TextTheme.of(context).displayMedium!.copyWith(
                         fontSize: 14,
-                        color: color ?? AppLightColor.primarytext,
+                        color: sourcedatacolor ?? AppLightColor.primarytext,
                       ),
                     ),
                   ),
@@ -51,7 +57,7 @@ class SourceData extends StatelessWidget {
               time,
               style: TextTheme.of(context).displayMedium!.copyWith(
                 fontSize: 14,
-                color: color ?? AppLightColor.primarytext,
+                color: timrcolor ?? AppLightColor.primarytext,
               ),
             ),
           ],
