@@ -1,12 +1,10 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:newsapp/core/Theme/light_colors.dart';
 import 'package:newsapp/core/enumes/request_statues_enum.dart';
-import 'package:newsapp/core/extensions/date_formate_extension.dart';
+import 'package:newsapp/core/widgets/custome_cash_networkImage.dart';
 import 'package:newsapp/features/Home/components/source_data.dart';
 import 'package:newsapp/features/Home/home_conrtoller.dart';
 import 'package:provider/provider.dart';
-import 'package:intl/intl.dart';
 
 class TrendingNews extends StatelessWidget {
   const TrendingNews({super.key});
@@ -31,10 +29,6 @@ class TrendingNews extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (BuildContext context, int index) {
                   final article = value.everyThingArticleList[index];
-                  var time = article.publishedAt.formatTimeAgo(
-                    article.publishedAt,
-                  );
-
                   return Container(
                     clipBehavior: Clip.antiAlias,
                     margin: EdgeInsets.all(4),
@@ -45,26 +39,10 @@ class TrendingNews extends StatelessWidget {
                     ),
                     child: Stack(
                       children: [
-                        CachedNetworkImage(
+                        CustomeCashNetwork(
+                          imagepath: article.urlToImage,
                           height: 140,
                           width: 235,
-                          fit: BoxFit.cover,
-                          imageUrl: article.urlToImage,
-                          progressIndicatorBuilder:
-                              (context, url, downloadProgress) => SizedBox(
-                                height: 25,
-                                width: 25,
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 0.5,
-                                  value: downloadProgress.progress,
-                                ),
-                              ),
-                          errorWidget: (context, url, error) => Image.asset(
-                            height: 68,
-                            width: 122,
-                            fit: BoxFit.cover,
-                            "assets/images/null.webp",
-                          ),
                         ),
                         Container(
                           decoration: BoxDecoration(
