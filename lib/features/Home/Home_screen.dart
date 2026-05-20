@@ -8,6 +8,7 @@ import 'package:newsapp/features/Home/components/topheadline.dart';
 import 'package:newsapp/features/Home/components/toppheadline_shimmer.dart';
 import 'package:newsapp/features/Home/components/view_all_copmponent.dart';
 import 'package:newsapp/features/Home/home_conrtoller.dart';
+import 'package:newsapp/features/Home/repos/news_repository.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -16,7 +17,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (BuildContext context) {
-        return HomeController()..init();
+        return HomeController(repository: NewsRepository())..init();
       },
       child: Consumer<HomeController>(
         builder: (BuildContext context, value, Widget? child) {

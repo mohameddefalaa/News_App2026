@@ -5,7 +5,7 @@ import 'package:newsapp/core/Theme/light_colors.dart';
 import 'package:newsapp/core/extensions/date_formate_extension.dart';
 import 'package:newsapp/core/constant/app_size.dart';
 import 'package:newsapp/core/widgets/custome_cash_networkImage.dart';
-import 'package:newsapp/models/news_article_model.dart';
+import 'package:newsapp/features/Home/models/news_article_model.dart';
 
 class NewsItem extends StatelessWidget {
   const NewsItem({super.key, required this.article});

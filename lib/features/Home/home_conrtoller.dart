@@ -1,15 +1,13 @@
-import 'dart:developer';
-
 import 'package:flutter/foundation.dart';
 import 'package:newsapp/core/enumes/request_statues_enum.dart';
-import 'package:newsapp/data_source/remote_data/api_cpnfig.dart';
-import 'package:newsapp/data_source/remote_data/api_service.dart';
-import 'package:newsapp/models/news_article_model.dart';
+import 'package:newsapp/features/Home/models/news_article_model.dart';
+import 'package:newsapp/features/Home/repos/news_repository.dart';
 
 class HomeController with ChangeNotifier {
+  HomeController({required this.repository});
   List<NewsArticleModel> topHEadArticleList = [];
   List<NewsArticleModel> everyThingArticleList = [];
-
+  NewsRepository repository;
   RequestStatuesEnum everythingstatues = RequestStatuesEnum.loading;
   RequestStatuesEnum topHeadlinestatues = RequestStatuesEnum.loading;
   int cureentindex = 0;
@@ -25,7 +23,6 @@ class HomeController with ChangeNotifier {
   String? selectedcategory;
 
   String? errormessage;
-  ApiService apiService = ApiService();
 
   void init() {
     callEveryThing();
@@ -35,25 +32,12 @@ class HomeController with ChangeNotifier {
   //("",params:  {})
   void callTopHeadLines(String? category) async {
     try {
-      Future.delayed(Duration(seconds: 5));
-      Map<String, dynamic> queryParams = {"country": "us"};
+      topHeadlinestatues = RequestStatuesEnum.loading;
+      notifyListeners();
 
-      if (category != null) {
-        queryParams = {"category": "$category"};
-
-        log(queryParams.hashCode.toString());
-        //queryParams["category"] = category;
-      }
-
-      final result = await apiService.get(
-        ApiCpnfig.topheadlines,
-        params: queryParams,
+      topHEadArticleList = await NewsRepository().getTopHeadLine(
+        category ?? null,
       );
-      final decodingArticles = result['articles'] as List<dynamic>;
-
-      topHEadArticleList = decodingArticles.map((e) {
-        return NewsArticleModel.fromjson(e);
-      }).toList();
       topHeadlinestatues = RequestStatuesEnum.loaded;
       errormessage = null;
       notifyListeners();
@@ -67,20 +51,12 @@ class HomeController with ChangeNotifier {
   }
 
   void callEveryThing() async {
-    Future.delayed(Duration(minutes: 1));
-
     try {
-      final result = await apiService.get(
-        ApiCpnfig.everything,
-        params: {"q": "trending health"},
-      );
-      final decodingArticles = result[ApiCpnfig.articles] as List<dynamic>;
+      everythingstatues = RequestStatuesEnum.loading;
+      notifyListeners();
 
-      everyThingArticleList = decodingArticles.map((e) {
-        return NewsArticleModel.fromjson(e);
-      }).toList();
+      everyThingArticleList = await NewsRepository().getEveryThing();
       everythingstatues = RequestStatuesEnum.loaded;
-
       errormessage = null;
       notifyListeners();
     } catch (e) {
@@ -96,35 +72,8 @@ class HomeController with ChangeNotifier {
     notifyListeners();
   }
 
-  // String formatTimeAgo(String? publishedAtStr) {
-  //   try {
-  //     if (publishedAtStr == null) return "";
-
-  //     Duration difference = DateTime.now().difference(
-  //       DateTime.parse(publishedAtStr).toLocal(),
-  //     );
-
-  //     if (difference.inSeconds < 60) {
-  //       return 'a second ago';
-  //     } else if (difference.inMinutes < 60) {
-  //       return '${difference.inMinutes}m ago';
-  //     } else if (difference.inHours < 24) {
-  //       return '${difference.inHours}h ago';
-  //     } else if (difference.inDays < 30) {
-  //       return '${difference.inDays}d ago';
-  //     } else {
-  //       return DateFormat(
-  //         'yyyy-MM-dd',
-  //       ).format(DateTime.parse(publishedAtStr).toLocal());
-  //     }
-  //   } catch (e) {
-  //     return 'unknown date';
-  //   }
-  // }
-
   void updatedSelectedCategory(int index) {
     selectedcategory = categories[index];
     callTopHeadLines(categories[index]);
-    notifyListeners();
   }
 }
