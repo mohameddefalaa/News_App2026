@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:newsapp/core/Theme/light_colors.dart';
 import 'package:newsapp/core/enumes/request_statues_enum.dart';
+import 'package:newsapp/core/constant/app_size.dart';
 import 'package:newsapp/core/widgets/custome_cash_networkImage.dart';
 import 'package:newsapp/features/Home/components/source_data.dart';
 import 'package:newsapp/features/Home/components/trending_news_shimmer.dart';
@@ -17,16 +18,19 @@ class TrendingNews extends StatelessWidget {
         switch (value.everythingstatues) {
           case RequestStatuesEnum.loading:
             return Center(
-              child: SizedBox(height: 145, child: TrendingShimmer()),
+              child: SizedBox(
+                height: AppSize.h40 * 4.5,
+                child: TrendingShimmer(),
+              ),
             );
           case RequestStatuesEnum.error:
             return Center(child: Text(value.errormessage!));
           case RequestStatuesEnum.loaded:
             return SizedBox(
-              height: 145,
+              height: AppSize.h40 * 4.5,
               child: ListView.separated(
                 separatorBuilder: (BuildContext context, int index) {
-                  return SizedBox(width: 8);
+                  return SizedBox(width: AppSize.w8);
                 },
                 itemCount: value.everyThingArticleList.take(8).length,
                 scrollDirection: Axis.horizontal,
@@ -34,18 +38,18 @@ class TrendingNews extends StatelessWidget {
                   final article = value.everyThingArticleList[index];
                   return Container(
                     clipBehavior: Clip.antiAlias,
-                    margin: EdgeInsets.all(4),
-                    height: 140,
-                    width: 235,
+                    margin: EdgeInsets.all(AppSize.dg4),
+                    height: AppSize.h40 * 4,
+                    width: AppSize.w40 * 5.875,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
+                      borderRadius: BorderRadius.circular(AppSize.r8),
                     ),
                     child: Stack(
                       children: [
                         CustomeCashNetwork(
                           imagepath: article.urlToImage,
-                          height: 140,
-                          width: 235,
+                          height: AppSize.h40 * 3.5,
+                          width: AppSize.w40 * 5.875,
                         ),
                         Container(
                           decoration: BoxDecoration(
@@ -53,18 +57,21 @@ class TrendingNews extends StatelessWidget {
                               begin: AlignmentGeometry.topCenter,
                               end: AlignmentGeometry.bottomCenter,
                               colors: [
-                                Colors.black.withValues(alpha: 0.5),
-                                Colors.black12.withValues(alpha: 0.7),
+                                Colors.transparent,
+                                Colors.black12.withValues(alpha: 0.8),
                               ],
                             ),
                           ),
                         ),
 
-                        Positioned.fill(
-                          top: 40,
+                        Positioned(
+                          bottom: 0,
+                          left: 0,
+                          right: 0,
                           child: Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: EdgeInsets.all(AppSize.dg8),
                             child: Column(
+                              mainAxisSize: MainAxisSize.min,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
@@ -76,7 +83,7 @@ class TrendingNews extends StatelessWidget {
                                         color: AppLightColor.primarytext,
                                       ),
                                 ),
-                                const SizedBox(height: 4),
+                                SizedBox(height: AppSize.h4),
                                 SourceData(article: article),
                               ],
                             ),

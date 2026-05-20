@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:newsapp/core/Theme/light_colors.dart';
+import 'package:newsapp/core/constant/app_size.dart';
 import 'package:newsapp/data_source/local_data/prefrencemanger.dart';
 import 'package:newsapp/features/Home/Home_screen.dart';
 import 'package:newsapp/features/auth/widget/custome_textfiled.dart';
@@ -103,14 +104,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       haintText: 'Email@mail.com',
                       controller: emailcontroller,
                     ),
-                    const SizedBox(height: 12),
+                    SizedBox(height: AppSize.h12),
                     Text(
                       "Passward",
                       style: TextTheme.of(context).displayMedium!.copyWith(
                         color: AppLightColor.textPrimary,
                       ),
                     ),
-                    const SizedBox(height: 8),
+                    SizedBox(height: AppSize.h8),
                     CustomeTextFiled(
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -136,14 +137,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       haintText: "********",
                       controller: passworedcontroller,
                     ),
-                    const SizedBox(height: 12),
+                    SizedBox(height: AppSize.h12),
                     Text(
                       "Confirm Passward",
                       style: TextTheme.of(context).displayMedium!.copyWith(
                         color: AppLightColor.textPrimary,
                       ),
                     ),
-                    const SizedBox(height: 8),
+                    SizedBox(height: AppSize.h8),
                     CustomeTextFiled(
                       isbassword: true,
                       haintText: "********",
@@ -151,7 +152,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                     errormessage != null
                         ? Padding(
-                            padding: const EdgeInsets.all(16.0),
+                            padding: EdgeInsets.all(AppSize.dg16),
                             child: Text(
                               errormessage ?? "",
                               style: TextTheme.of(context).displayMedium!
@@ -159,10 +160,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             ),
                           )
                         : SizedBox(),
-                    const SizedBox(height: 20),
+                    SizedBox(height: AppSize.h20),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        fixedSize: Size(MediaQuery.sizeOf(context).width, 48),
+                        fixedSize: Size(
+                          MediaQuery.sizeOf(context).width,
+                          AppSize.h48,
+                        ),
                       ),
                       onPressed: () async {
                         setState(() {});
@@ -179,7 +183,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               ).displayMedium!.copyWith(color: Colors.white),
                             ),
                     ),
-                    const SizedBox(height: 24),
+                    SizedBox(height: AppSize.h24),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -187,7 +191,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           "Have an account ?",
                           style: TextTheme.of(context).displayMedium!.copyWith(
                             color: AppLightColor.textPrimary,
-                            fontSize: 14,
+                            fontSize: AppSize.sp14,
                           ),
                         ),
                         TextButton(
@@ -199,7 +203,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             style: TextTheme.of(context).displayMedium!
                                 .copyWith(
                                   color: AppLightColor.primaryColor,
-                                  fontSize: 14,
+                                  fontSize: AppSize.sp14,
                                 ),
                           ),
                         ),

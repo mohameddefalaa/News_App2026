@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:newsapp/core/Theme/light_colors.dart';
 import 'package:newsapp/core/extensions/date_formate_extension.dart';
 import 'package:newsapp/core/widgets/custome_cash_networkImage.dart';
+import 'package:newsapp/core/constant/app_size.dart';
 import 'package:newsapp/features/Home/home_conrtoller.dart';
 import 'package:provider/provider.dart';
 
@@ -22,23 +23,23 @@ class NewsDetails extends StatelessWidget {
             title: Text(
               "News Details",
               style: TextTheme.of(context).titleMedium!.copyWith(
-                fontSize: 16,
+                fontSize: AppSize.sp16,
                 color: AppLightColor.textPrimary,
               ),
             ),
           ),
           body: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: EdgeInsets.all(AppSize.dg16),
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   CustomeCashNetwork(
                     imagepath: article.urlToImage,
-                    height: 230,
-                    width: 345,
+                    height: AppSize.h1 * 230,
+                    width: AppSize.w1 * 345,
                   ),
-                  const SizedBox(height: 4),
+                  SizedBox(height: AppSize.h4),
                   Text(
                     article.title,
                     style: TextTheme.of(
@@ -50,12 +51,12 @@ class NewsDetails extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       CircleAvatar(
-                        radius: 10,
+                        radius: AppSize.r1 * 10,
                         backgroundImage: article.urlToImage.isEmpty
                             ? AssetImage("assets/images/null.webp")
                             : NetworkImage(article.urlToImage),
                       ),
-                      const SizedBox(width: 4),
+                      SizedBox(width: AppSize.w4),
                       Expanded(
                         child: Row(
                           children: [
@@ -68,19 +69,19 @@ class NewsDetails extends StatelessWidget {
                               ),
                               style: TextTheme.of(context).displayMedium!
                                   .copyWith(
-                                    fontSize: 14,
+                                    fontSize: AppSize.sp14,
                                     color: AppLightColor.textPrimary,
                                   ),
                             ),
 
-                            const SizedBox(width: 10),
+                            SizedBox(width: AppSize.w1 * 10),
                             Text(
                               article.publishedAt.formatTimeAgo(
                                 article.publishedAt,
                               ),
                               style: TextTheme.of(context).displayMedium!
                                   .copyWith(
-                                    fontSize: 14,
+                                    fontSize: AppSize.sp14,
                                     color: AppLightColor.textsecondry,
                                   ),
                             ),

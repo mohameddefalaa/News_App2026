@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:newsapp/core/constant/app_size.dart';
 
 class CustomeCashNetwork extends StatelessWidget {
   const CustomeCashNetwork({
@@ -15,17 +16,17 @@ class CustomeCashNetwork extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadiusGeometry.circular(4),
+      borderRadius: BorderRadius.circular(AppSize.r4),
       child: CachedNetworkImage(
-        height: height ?? 80,
-        width: width ?? 140,
+        height: height ?? AppSize.h40 * 2,
+        width: width ?? AppSize.w28 * 5,
         imageUrl: imagepath,
         fit: BoxFit.cover,
         progressIndicatorBuilder: (context, url, progress) {
           return Shimmer.fromColors(
             child: Container(
-              height: height ?? 80,
-              width: width ?? 140,
+              height: height ?? AppSize.h40 * 2,
+              width: width ?? AppSize.w28 * 5,
               color: Colors.white,
             ),
             baseColor: Colors.grey.shade300,

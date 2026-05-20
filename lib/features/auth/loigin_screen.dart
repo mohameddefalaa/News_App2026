@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:newsapp/core/Theme/light_colors.dart';
+import 'package:newsapp/core/constant/app_size.dart';
 import 'package:newsapp/data_source/local_data/prefrencemanger.dart';
 import 'package:newsapp/features/Home/Home_screen.dart';
 import 'package:newsapp/features/auth/signup_screen.dart';
@@ -53,35 +54,35 @@ class _LogInScreenState extends State<LogInScreen> {
             ),
           ),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            padding: EdgeInsets.symmetric(horizontal: AppSize.w16),
             child: Form(
               key: key,
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const SizedBox(height: 155),
+                    SizedBox(height: AppSize.h40 * 3.875),
                     Center(
                       child: Image.asset(
                         "assets/icons/app_logo.png",
-                        height: 46,
-                        width: 245,
+                        height: AppSize.h48 * 0.95,
+                        width: AppSize.w48 * 5.1,
                       ),
                     ),
-                    const SizedBox(height: 24),
+                    SizedBox(height: AppSize.h24),
 
                     Text(
                       "Welcome to Newts",
                       style: TextTheme.of(context).titleMedium,
                     ),
-                    const SizedBox(height: 16),
+                    SizedBox(height: AppSize.h16),
                     Text(
                       "Email",
                       style: TextTheme.of(context).displayMedium!.copyWith(
                         color: AppLightColor.textPrimary,
                       ),
                     ),
-                    const SizedBox(height: 8),
+                    SizedBox(height: AppSize.h8),
                     CustomeTextFiled(
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -101,14 +102,14 @@ class _LogInScreenState extends State<LogInScreen> {
                       haintText: 'Email@mail.com',
                       controller: namecontroller,
                     ),
-                    const SizedBox(height: 12),
+                    SizedBox(height: AppSize.h12),
                     Text(
                       "Passward",
                       style: TextTheme.of(context).displayMedium!.copyWith(
                         color: AppLightColor.textPrimary,
                       ),
                     ),
-                    const SizedBox(height: 8),
+                    SizedBox(height: AppSize.h8),
                     CustomeTextFiled(
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -128,7 +129,7 @@ class _LogInScreenState extends State<LogInScreen> {
                       controller: passworedcontroller,
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(16),
+                      padding: EdgeInsets.all(AppSize.dg16),
                       child: Text(
                         errorMessage ?? "",
 
@@ -137,11 +138,14 @@ class _LogInScreenState extends State<LogInScreen> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 20),
+                    SizedBox(height: AppSize.h20),
 
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        fixedSize: Size(MediaQuery.sizeOf(context).width, 48),
+                        fixedSize: Size(
+                          MediaQuery.sizeOf(context).width,
+                          AppSize.h48,
+                        ),
                       ),
                       onPressed: () {
                         if (key.currentState!.validate()) {
@@ -157,7 +161,7 @@ class _LogInScreenState extends State<LogInScreen> {
                               ).displayMedium!.copyWith(color: Colors.white),
                             ),
                     ),
-                    const SizedBox(height: 24),
+                    SizedBox(height: AppSize.h24),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -165,7 +169,7 @@ class _LogInScreenState extends State<LogInScreen> {
                           "Don’t have an account ?",
                           style: TextTheme.of(context).displayMedium!.copyWith(
                             color: AppLightColor.textPrimary,
-                            fontSize: 14,
+                            fontSize: AppSize.sp14,
                           ),
                         ),
                         TextButton(
@@ -182,7 +186,7 @@ class _LogInScreenState extends State<LogInScreen> {
                             style: TextTheme.of(context).displayMedium!
                                 .copyWith(
                                   color: AppLightColor.primaryColor,
-                                  fontSize: 14,
+                                  fontSize: AppSize.sp14,
                                 ),
                           ),
                         ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:newsapp/core/Theme/light_colors.dart';
+import 'package:newsapp/core/constant/app_size.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -12,13 +13,12 @@ class ProfileScreen extends StatelessWidget {
         title: Text(
           "Profile",
           style: TextTheme.of(context).titleMedium!.copyWith(
-            fontSize: 16,
+            fontSize: AppSize.sp16,
             color: AppLightColor.textPrimary,
           ),
         ),
       ),
       body: Container(),
     );
-    ;
   }
 }

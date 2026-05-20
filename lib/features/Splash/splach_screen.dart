@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:newsapp/core/constant/app_size.dart';
 import 'package:newsapp/data_source/local_data/prefrencemanger.dart';
 import 'package:newsapp/features/Home/Home_screen.dart';
 import 'package:newsapp/features/auth/loigin_screen.dart';
@@ -30,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void _navigatAfterSplashScreen() async {
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 2));
     bool? isOnBoardingComplete =
         PerfrenceManager().getbool("IsFinished") ?? false;
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:newsapp/core/Theme/light_colors.dart';
+import 'package:newsapp/core/constant/app_size.dart';
 
 class BookMarkScreen extends StatelessWidget {
   const BookMarkScreen({super.key});
@@ -12,7 +13,7 @@ class BookMarkScreen extends StatelessWidget {
         title: Text(
           "Bookmark",
           style: TextTheme.of(context).titleMedium!.copyWith(
-            fontSize: 16,
+            fontSize: AppSize.sp16,
             color: AppLightColor.textPrimary,
           ),
         ),

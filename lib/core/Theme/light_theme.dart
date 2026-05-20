@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:newsapp/core/Theme/light_colors.dart';
+import 'package:newsapp/core/constant/app_size.dart';
 
 ThemeData lightTheme = ThemeData(
   scaffoldBackgroundColor: AppLightColor.backgroundColor,
   textTheme: TextTheme(
     titleMedium: TextStyle(
       fontWeight: FontWeight.w700,
-      fontSize: 20,
+      fontSize: AppSize.sp20,
       letterSpacing: 0,
       color: AppLightColor.textTitileColor,
       fontFamily: "Times New Roman",
@@ -14,14 +15,14 @@ ThemeData lightTheme = ThemeData(
 
     displayMedium: TextStyle(
       fontWeight: FontWeight.w400,
-      fontSize: 16,
+      fontSize: AppSize.sp16,
       letterSpacing: 0,
       color: AppLightColor.textDescColor,
       fontFamily: "Times New Roman",
     ),
     titleSmall: TextStyle(
       fontWeight: FontWeight.w700,
-      fontSize: 14,
+      fontSize: AppSize.sp14,
       letterSpacing: 0,
       color: AppLightColor.primarytext,
       fontFamily: "Schibsted Grotesk",
@@ -32,12 +33,12 @@ ThemeData lightTheme = ThemeData(
       padding: EdgeInsets.zero,
       overlayColor: Colors.transparent,
       foregroundColor: AppLightColor.primaryColor,
-      textStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+      textStyle: TextStyle(fontSize: AppSize.sp16, fontWeight: FontWeight.w400),
     ),
   ),
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
-      fixedSize: Size(double.infinity, 48),
+      fixedSize: Size(double.infinity, AppSize.h48),
       foregroundColor: AppLightColor.buttonText,
       backgroundColor: AppLightColor.primaryColor,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),

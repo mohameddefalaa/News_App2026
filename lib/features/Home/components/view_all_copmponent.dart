@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:newsapp/core/Theme/light_colors.dart';
+import 'package:newsapp/core/constant/app_size.dart';
 
 class ViewAll extends StatelessWidget {
   const ViewAll({
@@ -14,7 +15,7 @@ class ViewAll extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      padding: EdgeInsets.symmetric(horizontal: AppSize.w16),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -22,7 +23,7 @@ class ViewAll extends StatelessWidget {
             text,
             style: TextTheme.of(context).titleMedium!.copyWith(
               color: color ?? AppLightColor.primarytext,
-              fontSize: 16,
+              fontSize: AppSize.sp16,
             ),
           ),
           TextButton(
@@ -31,7 +32,7 @@ class ViewAll extends StatelessWidget {
               "View all",
               style: TextTheme.of(context).displayMedium!.copyWith(
                 color: color ?? AppLightColor.primarytext,
-                fontSize: 14,
+                fontSize: AppSize.sp14,
                 decoration: TextDecoration.underline,
                 decorationColor: color ?? AppLightColor.primarytext,
               ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:newsapp/core/Theme/light_colors.dart';
-import 'package:newsapp/features/Home/Home_screen.dart';
+import 'package:newsapp/core/constant/app_size.dart';
 import 'package:newsapp/features/onBoarding/controller.dart';
 import 'package:newsapp/features/onBoarding/models/onboarding_model.dart';
 import 'package:provider/provider.dart';
@@ -36,7 +36,10 @@ class OnBoardingScreen extends StatelessWidget {
             ],
           ),
           body: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 16),
+            padding: EdgeInsets.symmetric(
+              vertical: AppSize.r30,
+              horizontal: AppSize.w16,
+            ),
             child: Column(
               children: [
                 Expanded(
@@ -51,13 +54,13 @@ class OnBoardingScreen extends StatelessWidget {
                           OnboardingModel.onboardingData[index];
                       return Column(
                         children: [
-                          Image.asset(model.imagePath),
-                          const SizedBox(height: 24),
+                          Expanded(child: Image.asset(model.imagePath)),
+                          SizedBox(height: AppSize.h24),
                           Text(
                             model.title,
                             style: TextTheme.of(context).titleMedium,
                           ),
-                          const SizedBox(height: 12),
+                          SizedBox(height: AppSize.h12),
                           Text(
                             textAlign: TextAlign.center,
                             model.desc,
@@ -68,7 +71,7 @@ class OnBoardingScreen extends StatelessWidget {
                     },
                   ),
                 ),
-                SizedBox(height: 24),
+                SizedBox(height: AppSize.h24),
                 Consumer<PageviewController>(
                   builder:
                       (
@@ -106,7 +109,7 @@ class OnBoardingScreen extends StatelessWidget {
                       },
                 ),
 
-                SizedBox(height: 113),
+                SizedBox(height: AppSize.h40 * 2.825),
 
                 Consumer<PageviewController>(
                   builder: (BuildContext context, value, Widget? child) {
@@ -120,7 +123,10 @@ class OnBoardingScreen extends StatelessWidget {
                       },
 
                       style: ElevatedButton.styleFrom(
-                        fixedSize: Size(MediaQuery.of(context).size.width, 48),
+                        fixedSize: Size(
+                          MediaQuery.of(context).size.width,
+                          AppSize.h48,
+                        ),
                       ),
                       child: value.currentindex != 2
                           ? Text("Next")

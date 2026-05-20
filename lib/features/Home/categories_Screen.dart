@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:newsapp/core/Theme/light_colors.dart';
+import 'package:newsapp/core/constant/app_size.dart';
 import 'package:newsapp/features/Home/components/categories_component.dart';
 import 'package:newsapp/features/Home/components/news_item.dart';
 import 'package:newsapp/features/Home/home_conrtoller.dart';
@@ -18,7 +19,7 @@ class CategoriesScreen extends StatelessWidget {
             title: Text(
               "Categories",
               style: TextTheme.of(context).titleMedium!.copyWith(
-                fontSize: 16,
+                fontSize: AppSize.sp16,
                 color: AppLightColor.textPrimary,
               ),
             ),

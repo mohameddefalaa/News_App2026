@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:newsapp/core/Theme/light_colors.dart';
 import 'package:newsapp/core/extensions/date_formate_extension.dart';
+import 'package:newsapp/core/constant/app_size.dart';
 import 'package:newsapp/features/Home/home_conrtoller.dart';
 import 'package:newsapp/models/news_article_model.dart';
 import 'package:provider/provider.dart';
@@ -33,12 +34,12 @@ class SourceData extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   CircleAvatar(
-                    radius: 10,
+                    radius: AppSize.r1 * 10,
                     backgroundImage: article.urlToImage.isEmpty
                         ? AssetImage("assets/images/null.webp")
                         : NetworkImage(article.urlToImage),
                   ),
-                  const SizedBox(width: 4),
+                  SizedBox(width: AppSize.w4),
                   Expanded(
                     child: Text(
                       maxLines: 1,
@@ -53,11 +54,11 @@ class SourceData extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(width: 2),
+            SizedBox(width: AppSize.w1 * 2),
             Text(
               time,
               style: TextTheme.of(context).displayMedium!.copyWith(
-                fontSize: 14,
+                fontSize: AppSize.sp14,
                 color: timrcolor ?? AppLightColor.primarytext,
               ),
             ),

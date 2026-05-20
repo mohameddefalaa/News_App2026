@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:newsapp/core/Theme/light_colors.dart';
+import 'package:newsapp/core/constant/app_size.dart';
 import 'package:newsapp/features/Home/components/trending_news.dart';
 import 'package:newsapp/features/Home/components/view_all_copmponent.dart';
 
@@ -10,11 +11,11 @@ class Header extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
       child: SizedBox(
-        height: 320,
+        height: AppSize.h32 * 10,
         child: Stack(
           children: [
             SizedBox(
-              height: 245,
+              height: AppSize.h48 * 5.1,
               width: double.infinity,
               child: Image.asset(
                 "assets/images/imagesback.png",
@@ -22,17 +23,17 @@ class Header extends StatelessWidget {
               ),
             ),
             Positioned.fill(
-              top: 70,
+              top: AppSize.h32 * 2.18,
               child: Column(
                 children: [
                   Text(
                     "NEWST",
                     style: TextTheme.of(context).titleMedium!.copyWith(
                       color: AppLightColor.primaryColor,
-                      fontSize: 25,
+                      fontSize: AppSize.sp24 * 1.04,
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  SizedBox(height: AppSize.h20),
                   ViewAll(text: "Trending News", onPressed: () {}),
                   TrendingNews(),
                 ],

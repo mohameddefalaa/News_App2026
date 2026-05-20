@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:newsapp/core/Theme/light_colors.dart';
+import 'package:newsapp/core/constant/app_size.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -17,7 +18,7 @@ class _SearchScreenState extends State<SearchScreen> {
         title: Text(
           "Search",
           style: TextTheme.of(context).titleMedium!.copyWith(
-            fontSize: 16,
+            fontSize: AppSize.sp16,
             color: AppLightColor.textPrimary,
           ),
         ),
