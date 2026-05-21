@@ -1,9 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:newsapp/core/enumes/request_statues_enum.dart';
+import 'package:newsapp/core/mixins/notify_seafty.dart';
 import 'package:newsapp/features/Home/models/news_article_model.dart';
 import 'package:newsapp/features/Home/repos/news_repository.dart';
 
-class HomeController with ChangeNotifier {
+class HomeController extends ChangeNotifier with notifyseafty {
   HomeController({required this.repository});
   List<NewsArticleModel> topHEadArticleList = [];
   List<NewsArticleModel> everyThingArticleList = [];
@@ -33,27 +34,27 @@ class HomeController with ChangeNotifier {
   void callTopHeadLines(String? category) async {
     try {
       topHeadlinestatues = RequestStatuesEnum.loading;
-      notifyListeners();
+      safeNotify();
 
       topHEadArticleList = await NewsRepository().getTopHeadLine(
         category ?? null,
       );
       topHeadlinestatues = RequestStatuesEnum.loaded;
       errormessage = null;
-      notifyListeners();
+      safeNotify();
     } catch (e) {
       topHeadlinestatues = RequestStatuesEnum.error;
       errormessage = e.toString();
-      notifyListeners();
+      safeNotify();
     }
 
-    notifyListeners();
+    safeNotify();
   }
 
   void callEveryThing() async {
     try {
       everythingstatues = RequestStatuesEnum.loading;
-      notifyListeners();
+      safeNotify();
 
       everyThingArticleList = await NewsRepository().getEveryThing();
       everythingstatues = RequestStatuesEnum.loaded;
@@ -62,14 +63,14 @@ class HomeController with ChangeNotifier {
     } catch (e) {
       everythingstatues = RequestStatuesEnum.error;
       errormessage = e.toString();
-      notifyListeners();
+      safeNotify();
     }
-    notifyListeners();
+    safeNotify();
   }
 
   void focuse(int index) {
     cureentindex = index;
-    notifyListeners();
+    safeNotify();
   }
 
   void updatedSelectedCategory(int index) {
