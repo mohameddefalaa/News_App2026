@@ -8,7 +8,7 @@ import 'package:newsapp/features/Home/components/topheadline.dart';
 import 'package:newsapp/features/Home/components/toppheadline_shimmer.dart';
 import 'package:newsapp/features/Home/components/view_all_copmponent.dart';
 import 'package:newsapp/features/Home/home_conrtoller.dart';
-import 'package:newsapp/features/Home/repos/news_repository.dart';
+import 'package:newsapp/core/repos/news_repository.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {

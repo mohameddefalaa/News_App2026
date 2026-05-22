@@ -3,10 +3,10 @@ import 'package:newsapp/data_source/remote_data/api_service.dart';
 import 'package:newsapp/features/Home/models/news_article_model.dart';
 
 class NewsRepository {
-  Future<List<NewsArticleModel>> getEveryThing() async {
+  Future<List<NewsArticleModel>> getEveryThing(String searchKeyWord) async {
     final result = await ApiService().get(
       ApiCpnfig.everything,
-      params: {"q": "trending health"},
+      params: {"q": searchKeyWord},
     );
     return (result[ApiCpnfig.articles] as List)
         .map((e) => NewsArticleModel.fromjson(e))

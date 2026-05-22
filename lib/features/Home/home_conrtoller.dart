@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:newsapp/core/enumes/request_statues_enum.dart';
 import 'package:newsapp/core/mixins/notify_seafty.dart';
 import 'package:newsapp/features/Home/models/news_article_model.dart';
-import 'package:newsapp/features/Home/repos/news_repository.dart';
+import 'package:newsapp/core/repos/news_repository.dart';
 
 class HomeController extends ChangeNotifier with notifyseafty {
   HomeController({required this.repository});
@@ -56,7 +56,9 @@ class HomeController extends ChangeNotifier with notifyseafty {
       everythingstatues = RequestStatuesEnum.loading;
       safeNotify();
 
-      everyThingArticleList = await NewsRepository().getEveryThing();
+      everyThingArticleList = await NewsRepository().getEveryThing(
+        "EveryThing",
+      );
       everythingstatues = RequestStatuesEnum.loaded;
       errormessage = null;
       notifyListeners();

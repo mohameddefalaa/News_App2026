@@ -1,98 +1,110 @@
 import 'package:flutter/material.dart';
 import 'package:newsapp/core/Theme/light_colors.dart';
 import 'package:newsapp/core/constant/app_size.dart';
+import 'package:newsapp/core/repos/news_repository.dart';
+import 'package:newsapp/features/NewsDetails/news_details.dart';
+import 'package:newsapp/features/search/searchController.dart';
+import 'package:provider/provider.dart';
 
-class SearchScreen extends StatefulWidget {
+class SearchScreen extends StatelessWidget {
   const SearchScreen({super.key});
 
   @override
-  State<SearchScreen> createState() => _SearchScreenState();
-}
-
-class _SearchScreenState extends State<SearchScreen> {
-  late TextEditingController serchcontroller;
-  @override
-  void initState() {
-    serchcontroller = TextEditingController();
-
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    serchcontroller.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          "Search",
-          style: TextTheme.of(context).titleMedium!.copyWith(
-            fontSize: AppSize.sp16,
-            color: AppLightColor.textPrimary,
+    return ChangeNotifierProvider(
+      create: (BuildContext context) {
+        return Searchcontroller(NewsRepository())..init();
+      },
+      builder: (context, child) {
+        final controller = context.watch<Searchcontroller>();
+        final model = controller.everyThingArticleList;
+        return Scaffold(
+          appBar: AppBar(
+            centerTitle: true,
+            title: Text(
+              "Search",
+              style: TextTheme.of(context).titleMedium!.copyWith(
+                fontSize: AppSize.sp16,
+                color: AppLightColor.textPrimary,
+              ),
+            ),
           ),
-        ),
-      ),
-      body: Padding(
-        padding: EdgeInsets.all(AppSize.dg16),
-        child: Column(
-          children: [
-            TextField(
-              controller: serchcontroller,
-              decoration: InputDecoration(
-                hintText: "Search",
-                hintStyle: TextTheme.of(context).displayMedium!.copyWith(
-                  fontSize: AppSize.sp14,
-                  color: AppLightColor.tertiarytext,
-                ),
-                fillColor: AppLightColor.backgroundColor,
-                suffixIcon: Icon(Icons.search, size: AppSize.r24),
-
-                suffixIconColor: AppLightColor.tertiarytext,
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(AppSize.r4),
-                  borderSide: BorderSide(color: AppLightColor.border2),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(AppSize.r4),
-                  borderSide: BorderSide(color: AppLightColor.border2),
-                ),
-              ),
-            ),
-            SizedBox(height: AppSize.h20),
-            Column(
-              children: List.generate(
-                3,
-                (index) => Column(
-                  children: [
-                    ListTile(
-                      contentPadding: EdgeInsetsGeometry.zero,
-                      title: Text(
-                        "City has an earthquake with 6.2 richer",
-                        style: TextTheme.of(context).displayMedium!.copyWith(
-                          color: AppLightColor.placeholdertext,
-                        ),
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.all(AppSize.dg16),
+              child: Column(
+                children: [
+                  TextField(
+                    onChanged: (value) {
+                      controller.callEveryThing(value);
+                    },
+                    controller: controller.serchcontroller,
+                    decoration: InputDecoration(
+                      hintText: "Search",
+                      hintStyle: TextTheme.of(context).displayMedium!.copyWith(
+                        fontSize: AppSize.sp14,
+                        color: AppLightColor.tertiarytext,
                       ),
-                      leading: Icon(Icons.search),
-                    ),
+                      fillColor: AppLightColor.backgroundColor,
+                      suffixIcon: Icon(Icons.search, size: AppSize.r24),
 
-                    Divider(
-                      color: AppLightColor.border,
-                      thickness: 1,
-                      endIndent: .5,
-                      height: 0,
+                      suffixIconColor: AppLightColor.tertiarytext,
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(AppSize.r4),
+                        borderSide: BorderSide(color: AppLightColor.border2),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(AppSize.r4),
+                        borderSide: BorderSide(color: AppLightColor.border2),
+                      ),
                     ),
-                  ],
-                ),
+                  ),
+                  SizedBox(height: AppSize.h20),
+                  controller.everyThingArticleList.isNotEmpty
+                      ? Column(
+                          children: List.generate(
+                            controller.everyThingArticleList.length,
+                            (index) => Column(
+                              children: [
+                                ListTile(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) {
+                                          return NewsDetails(index: index);
+                                        },
+                                      ),
+                                    );
+                                  },
+                                  contentPadding: EdgeInsetsGeometry.zero,
+                                  title: Text(
+                                    model[index].title,
+                                    style: TextTheme.of(context).displayMedium!
+                                        .copyWith(
+                                          color: AppLightColor.placeholdertext,
+                                        ),
+                                  ),
+                                  leading: Icon(Icons.search),
+                                ),
+
+                                Divider(
+                                  color: AppLightColor.border,
+                                  thickness: 1,
+                                  endIndent: .5,
+                                  height: 0,
+                                ),
+                              ],
+                            ),
+                          ),
+                        )
+                      : SizedBox(),
+                ],
               ),
             ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }
