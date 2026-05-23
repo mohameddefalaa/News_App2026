@@ -24,12 +24,14 @@ class Searchcontroller extends ChangeNotifier with notifyseafty {
   Searchcontroller(this.newsRepository);
 
   final NewsRepository newsRepository;
-  void callEveryThing(String searchKeyWord) async {
+  void callEveryThing() async {
     try {
       everythingstatues = RequestStatuesEnum.loading;
       safeNotify();
 
-      everyThingArticleList = await newsRepository.getEveryThing(searchKeyWord);
+      everyThingArticleList = await newsRepository.getEveryThing(
+        serchcontroller.text,
+      );
       everythingstatues = RequestStatuesEnum.loaded;
       errormessage = null;
       notifyListeners();

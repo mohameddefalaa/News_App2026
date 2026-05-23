@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:newsapp/core/Theme/light_colors.dart';
 import 'package:newsapp/core/constant/app_size.dart';
 import 'package:newsapp/core/repos/news_repository.dart';
+import 'package:newsapp/core/widgets/custome_cash_networkImage.dart';
+import 'package:newsapp/features/Home/home_conrtoller.dart';
 import 'package:newsapp/features/NewsDetails/news_details.dart';
 import 'package:newsapp/features/search/searchController.dart';
 import 'package:provider/provider.dart';
@@ -36,7 +38,7 @@ class SearchScreen extends StatelessWidget {
                 children: [
                   TextField(
                     onChanged: (value) {
-                      controller.callEveryThing(value);
+                      controller.callEveryThing();
                     },
                     controller: controller.serchcontroller,
                     decoration: InputDecoration(
@@ -64,38 +66,54 @@ class SearchScreen extends StatelessWidget {
                       ? Column(
                           children: List.generate(
                             controller.everyThingArticleList.length,
-                            (index) => Column(
-                              children: [
-                                ListTile(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) {
-                                          return NewsDetails(index: index);
-                                        },
-                                      ),
-                                    );
-                                  },
-                                  contentPadding: EdgeInsetsGeometry.zero,
-                                  title: Text(
-                                    model[index].title,
-                                    style: TextTheme.of(context).displayMedium!
-                                        .copyWith(
-                                          color: AppLightColor.placeholdertext,
+                            (index) {
+                              final article =
+                                  controller.everyThingArticleList[index];
+                              return Column(
+                                children: [
+                                  ListTile(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (ctx) {
+                                            return NewsDetails(
+                                              article: article,
+                                            );
+                                          },
                                         ),
+                                      );
+                                    },
+                                    contentPadding: EdgeInsetsGeometry.zero,
+                                    title: Text(
+                                      article.title,
+                                      maxLines: 1,
+                                      style: TextTheme.of(context)
+                                          .displayMedium!
+                                          .copyWith(
+                                            color:
+                                                AppLightColor.placeholdertext,
+                                          ),
+                                    ),
+                                    leading: Icon(Icons.search),
+                                    //
+                                    // CircleAvatar(
+                                    //   backgroundImage: NetworkImage(
+                                    //     article.urlToImage,
+                                    //   ),
+                                    //   radius: AppSize.r12,
+                                    // ),
                                   ),
-                                  leading: Icon(Icons.search),
-                                ),
 
-                                Divider(
-                                  color: AppLightColor.border,
-                                  thickness: 1,
-                                  endIndent: .5,
-                                  height: 0,
-                                ),
-                              ],
-                            ),
+                                  Divider(
+                                    color: AppLightColor.border,
+                                    thickness: 1,
+                                    endIndent: .5,
+                                    height: 0,
+                                  ),
+                                ],
+                              );
+                            },
                           ),
                         )
                       : SizedBox(),

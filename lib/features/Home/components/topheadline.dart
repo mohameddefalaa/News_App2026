@@ -21,10 +21,7 @@ class TopHeadline extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (_) => ChangeNotifierProvider.value(
-                      value: context.watch<HomeController>(),
-                      child: NewsDetails(index: index),
-                    ),
+                    builder: (_) => NewsDetails(article: areticle),
                   ),
                 );
               },

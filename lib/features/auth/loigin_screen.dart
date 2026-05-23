@@ -57,142 +57,144 @@ class _LogInScreenState extends State<LogInScreen> {
             padding: EdgeInsets.symmetric(horizontal: AppSize.w16),
             child: Form(
               key: key,
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(height: AppSize.h40 * 3.875),
-                    Center(
-                      child: Image.asset(
-                        "assets/icons/app_logo.png",
-                        height: AppSize.h48 * 0.95,
-                        width: AppSize.w48 * 5.1,
+              child: Center(
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Center(
+                        child: Image.asset(
+                          "assets/icons/app_logo.png",
+                          height: AppSize.h48 * 0.95,
+                          width: AppSize.w48 * 5.1,
+                        ),
                       ),
-                    ),
-                    SizedBox(height: AppSize.h24),
+                      SizedBox(height: AppSize.h24),
 
-                    Text(
-                      "Welcome to Newts",
-                      style: TextTheme.of(context).titleMedium,
-                    ),
-                    SizedBox(height: AppSize.h16),
-                    Text(
-                      "Email",
-                      style: TextTheme.of(context).displayMedium!.copyWith(
-                        color: AppLightColor.textPrimary,
+                      Text(
+                        "Welcome to Newts",
+                        style: TextTheme.of(context).titleMedium,
                       ),
-                    ),
-                    SizedBox(height: AppSize.h8),
-                    CustomeTextFiled(
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return "Email mustn't be empty";
-                        }
-
-                        // هنا ننشئ كائن الـ RegExp ونفحص القيمة
-                        final emailRegex = RegExp(
-                          r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
-                        );
-                        if (!emailRegex.hasMatch(value)) {
-                          return "Please enter a valid email address";
-                        }
-
-                        return null;
-                      },
-                      haintText: 'Email@mail.com',
-                      controller: namecontroller,
-                    ),
-                    SizedBox(height: AppSize.h12),
-                    Text(
-                      "Passward",
-                      style: TextTheme.of(context).displayMedium!.copyWith(
-                        color: AppLightColor.textPrimary,
-                      ),
-                    ),
-                    SizedBox(height: AppSize.h8),
-                    CustomeTextFiled(
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return "Password mustn't be empty";
-                        }
-
-                        // هنا ننشئ كائن الـ RegExp ونفحص القيمة
-                        final passwordRegex = RegExp(r"^[a-zA-Z0-9]{6,}$");
-                        if (!passwordRegex.hasMatch(value)) {
-                          return "Password must be at least 6 characters";
-                        }
-
-                        return null;
-                      },
-                      isbassword: true,
-                      haintText: "********",
-                      controller: passworedcontroller,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(AppSize.dg16),
-                      child: Text(
-                        errorMessage ?? "",
-
+                      SizedBox(height: AppSize.h16),
+                      Text(
+                        "Email",
                         style: TextTheme.of(context).displayMedium!.copyWith(
-                          color: AppLightColor.primaryColor,
+                          color: AppLightColor.textPrimary,
                         ),
                       ),
-                    ),
-                    SizedBox(height: AppSize.h20),
+                      SizedBox(height: AppSize.h8),
+                      CustomeTextFiled(
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Email mustn't be empty";
+                          }
 
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        fixedSize: Size(
-                          MediaQuery.sizeOf(context).width,
-                          AppSize.h48,
+                          // هنا ننشئ كائن الـ RegExp ونفحص القيمة
+                          final emailRegex = RegExp(
+                            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
+                          );
+                          if (!emailRegex.hasMatch(value)) {
+                            return "Please enter a valid email address";
+                          }
+
+                          return null;
+                        },
+                        haintText: 'Email@mail.com',
+                        controller: namecontroller,
+                      ),
+                      SizedBox(height: AppSize.h12),
+                      Text(
+                        "Passward",
+                        style: TextTheme.of(context).displayMedium!.copyWith(
+                          color: AppLightColor.textPrimary,
                         ),
                       ),
-                      onPressed: () {
-                        if (key.currentState!.validate()) {
-                          login();
-                        } else {}
-                      },
-                      child: isloading
-                          ? CircularProgressIndicator()
-                          : Text(
-                              "Sign In",
-                              style: TextTheme.of(
-                                context,
-                              ).displayMedium!.copyWith(color: Colors.white),
-                            ),
-                    ),
-                    SizedBox(height: AppSize.h24),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Don’t have an account ?",
+                      SizedBox(height: AppSize.h8),
+                      CustomeTextFiled(
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Password mustn't be empty";
+                          }
+
+                          // هنا ننشئ كائن الـ RegExp ونفحص القيمة
+                          final passwordRegex = RegExp(r"^[a-zA-Z0-9]{6,}$");
+                          if (!passwordRegex.hasMatch(value)) {
+                            return "Password must be at least 6 characters";
+                          }
+
+                          return null;
+                        },
+                        isbassword: true,
+                        haintText: "********",
+                        controller: passworedcontroller,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(AppSize.dg16),
+                        child: Text(
+                          errorMessage ?? "",
+
                           style: TextTheme.of(context).displayMedium!.copyWith(
-                            color: AppLightColor.textPrimary,
-                            fontSize: AppSize.sp14,
+                            color: AppLightColor.primaryColor,
                           ),
                         ),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => SignUpScreen(),
+                      ),
+                      SizedBox(height: AppSize.h20),
+
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          fixedSize: Size(
+                            MediaQuery.sizeOf(context).width,
+                            AppSize.h48,
+                          ),
+                        ),
+                        onPressed: () {
+                          if (key.currentState!.validate()) {
+                            login();
+                          } else {}
+                        },
+                        child: isloading
+                            ? CircularProgressIndicator()
+                            : Text(
+                                "Sign In",
+                                style: TextTheme.of(
+                                  context,
+                                ).displayMedium!.copyWith(color: Colors.white),
                               ),
-                            );
-                          },
-                          child: Text(
-                            "Sign Up",
+                      ),
+                      SizedBox(height: AppSize.h24),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Don’t have an account ?",
                             style: TextTheme.of(context).displayMedium!
                                 .copyWith(
-                                  color: AppLightColor.primaryColor,
+                                  color: AppLightColor.textPrimary,
                                   fontSize: AppSize.sp14,
                                 ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
+                          TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => SignUpScreen(),
+                                ),
+                              );
+                            },
+                            child: Text(
+                              "Sign Up",
+                              style: TextTheme.of(context).displayMedium!
+                                  .copyWith(
+                                    color: AppLightColor.primaryColor,
+                                    fontSize: AppSize.sp14,
+                                  ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

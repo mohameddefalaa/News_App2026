@@ -10,37 +10,35 @@ class Header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
-      child: SizedBox(
-        height: AppSize.h32 * 10,
-        child: Stack(
-          children: [
-            SizedBox(
-              height: AppSize.h48 * 5.1,
-              width: double.infinity,
-              child: Image.asset(
-                "assets/images/imagesback.png",
-                fit: BoxFit.cover,
-              ),
+      child: Stack(
+        children: [
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            height: 250,
+            child: Image.asset(
+              "assets/images/imagesback.png",
+              fit: BoxFit.cover,
             ),
-            Positioned.fill(
-              top: AppSize.h32 * 2.18,
-              child: Column(
-                children: [
-                  Text(
-                    "NEWST",
-                    style: TextTheme.of(context).titleMedium!.copyWith(
-                      color: AppLightColor.primaryColor,
-                      fontSize: AppSize.sp24 * 1.04,
-                    ),
-                  ),
-                  SizedBox(height: AppSize.h20),
-                  ViewAll(text: "Trending News", onPressed: () {}),
-                  TrendingNews(),
-                ],
+          ),
+          Column(
+            children: [
+              SizedBox(height: 50),
+              Text(
+                "NEWST",
+                style: TextTheme.of(context).titleMedium!.copyWith(
+                  color: AppLightColor.primaryColor,
+                  fontSize: AppSize.sp24 * 1.04,
+                ),
               ),
-            ),
-          ],
-        ),
+              SizedBox(height: AppSize.h20 / 2),
+              ViewAll(text: "Trending News", onPressed: () {}),
+              TrendingNews(),
+              SizedBox(height: 20),
+            ],
+          ),
+        ],
       ),
     );
   }

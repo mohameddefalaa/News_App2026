@@ -18,16 +18,13 @@ class TrendingNews extends StatelessWidget {
         switch (value.everythingstatues) {
           case RequestStatuesEnum.loading:
             return Center(
-              child: SizedBox(
-                height: AppSize.h40 * 4.5,
-                child: TrendingShimmer(),
-              ),
+              child: SizedBox(height: 155, child: TrendingShimmer()),
             );
           case RequestStatuesEnum.error:
             return Center(child: Text(value.errormessage!));
           case RequestStatuesEnum.loaded:
             return SizedBox(
-              height: AppSize.h40 * 4.5,
+              height: 155,
               child: ListView.separated(
                 separatorBuilder: (BuildContext context, int index) {
                   return SizedBox(width: AppSize.w8);
@@ -39,27 +36,31 @@ class TrendingNews extends StatelessWidget {
                   return Container(
                     clipBehavior: Clip.antiAlias,
                     margin: EdgeInsets.all(AppSize.dg4),
-                    height: AppSize.h40 * 4,
-                    width: AppSize.w40 * 5.875,
+                    height: 139,
+                    width: 235,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(AppSize.r8),
                     ),
                     child: Stack(
                       children: [
-                        CustomeCashNetwork(
-                          imagepath: article.urlToImage,
-                          height: AppSize.h40 * 3.5,
-                          width: AppSize.w40 * 5.875,
+                        Positioned.fill(
+                          child: CustomeCashNetwork(
+                            imagepath: article.urlToImage,
+                            height: 139,
+                            width: 235,
+                          ),
                         ),
-                        Container(
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: AlignmentGeometry.topCenter,
-                              end: AlignmentGeometry.bottomCenter,
-                              colors: [
-                                Colors.transparent,
-                                Colors.black12.withValues(alpha: 0.8),
-                              ],
+                        Positioned.fill(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                begin: AlignmentGeometry.topCenter,
+                                end: AlignmentGeometry.bottomCenter,
+                                colors: [
+                                  Colors.transparent,
+                                  Colors.black12.withValues(alpha: 0.8),
+                                ],
+                              ),
                             ),
                           ),
                         ),

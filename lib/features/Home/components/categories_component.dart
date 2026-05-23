@@ -15,7 +15,7 @@ class CategoriesList extends StatelessWidget {
           padding: EdgeInsets.only(
             left: AppSize.w8,
             bottom: AppSize.h8,
-            top: AppSize.h20,
+            top: AppSize.h20 / 2.5,
           ),
           child: SizedBox(
             height: AppSize.h40,
