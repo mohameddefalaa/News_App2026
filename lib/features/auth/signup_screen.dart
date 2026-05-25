@@ -20,6 +20,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
   late TextEditingController emailcontroller;
   late TextEditingController passworedcontroller;
   late TextEditingController confirmPassworedcontroller;
+  late TextEditingController namecontroller;
+
   late GlobalKey<FormState> key;
 
   String? errormessage;
@@ -29,6 +31,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
     emailcontroller = TextEditingController();
     passworedcontroller = TextEditingController();
     confirmPassworedcontroller = TextEditingController();
+    namecontroller = TextEditingController();
+
     key = GlobalKey<FormState>();
 
     super.initState();
@@ -39,6 +43,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
     emailcontroller.dispose();
     passworedcontroller.dispose();
     confirmPassworedcontroller.dispose();
+    namecontroller.dispose();
+
     super.dispose();
   }
 
@@ -69,17 +75,38 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       Center(
                         child: Image.asset(
                           "assets/icons/app_logo.png",
-                          height: 46,
-                          width: 245,
+                          height: AppSize.h32 * 2,
+                          width: AppSize.w48 * 5.291,
                         ),
                       ),
-                      const SizedBox(height: 24),
+                      SizedBox(height: AppSize.h24),
 
                       Text(
                         "Welcome to Newts",
                         style: TextTheme.of(context).titleMedium,
                       ),
-                      const SizedBox(height: 16),
+                      SizedBox(height: AppSize.h16 / 2),
+
+                      Text(
+                        "User Name",
+                        style: TextTheme.of(context).displayMedium!.copyWith(
+                          color: AppLightColor.textPrimary,
+                        ),
+                      ),
+                      SizedBox(height: AppSize.h16 / 2),
+                      CustomeTextFiled(
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Email mustn't be empty";
+                          }
+
+                          return null;
+                        },
+                        haintText: 'Mohamed....',
+                        controller: namecontroller,
+                      ),
+                      SizedBox(height: AppSize.h16 / 2),
+
                       Text(
                         "Email",
                         style: TextTheme.of(context).displayMedium!.copyWith(
@@ -245,6 +272,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
         errormessage = "Sorry This Email Already Registered";
       });
     } else {
+      await PerfrenceManager().setstring(
+        "Saved_Name",
+        namecontroller.text.trim(),
+      );
       await PerfrenceManager().setstring(
         "Saved_Email",
         emailcontroller.text.trim(),
