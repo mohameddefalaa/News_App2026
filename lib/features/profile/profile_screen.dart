@@ -13,8 +13,17 @@ import 'package:country_picker/country_picker.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   ProfileScreen({super.key});
+
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  bool isselectedcountrty = false;
+  String? countryname;
+  String? countrycode;
 
   @override
   @override
@@ -28,7 +37,7 @@ class ProfileScreen extends StatelessWidget {
         final List<ProfileMenuItem> menuItems = [
           ProfileMenuItem(
             title: "Personal Info",
-            icon: Icons.person_outline,
+            icon: Icon(Icons.person_outline),
             onTap: (context) async {
               await showModalBottomSheet(
                 isScrollControlled: true,
@@ -37,7 +46,7 @@ class ProfileScreen extends StatelessWidget {
                 context: context,
                 builder: (ctx) {
                   return ChangeNotifierProvider.value(
-                    value: context.watch<ProfileController>(),
+                    value: context.read<ProfileController>()..Loaduserdata(),
                     child: ProfilebottomSheet(),
                   );
                 },
@@ -48,26 +57,35 @@ class ProfileScreen extends StatelessWidget {
           ),
           ProfileMenuItem(
             title: "Language",
-            icon: Icons.language,
+            icon: Icon(Icons.language),
             onTap: (context) {},
           ),
           ProfileMenuItem(
-            title: "Country",
-            icon: Icons.flag_outlined,
+            title: isselectedcountrty ? countryname! : "Country",
+            icon: isselectedcountrty
+                ? Text(
+                    "+${countrycode.toString()}",
+                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
+                  )
+                : Icon(Icons.flag_outlined),
             onTap: (context) {
               showCountryPicker(
                 context: context,
                 showPhoneCode:
                     true, // optional. Shows phone code before the country name.
                 onSelect: (Country country) {
-                  print('Select country: ${country.displayName}');
+                  setState(() {
+                    isselectedcountrty = true;
+                    countryname = country.name;
+                    countrycode = country.phoneCode;
+                  });
                 },
               );
             },
           ),
           ProfileMenuItem(
             title: "Terms & Conditions",
-            icon: Icons.article_outlined,
+            icon: Icon(Icons.article_outlined),
             onTap: (context) {
               Navigator.push(
                 context,
@@ -81,7 +99,7 @@ class ProfileScreen extends StatelessWidget {
           ),
           ProfileMenuItem(
             title: "Logout",
-            icon: Icons.logout,
+            icon: Icon(Icons.logout),
             isLogout: true, // خلينا دي true عشان تظهر باللون الأحمر
             onTap: (context) async {
               await PerfrenceManager().setbool("isloggedin", false);
@@ -211,7 +229,7 @@ class ProfileScreen extends StatelessWidget {
                         SizedBox(height: AppSize.h8),
                         Center(
                           child: Text(
-                            value.name ?? "",
+                            value.name ?? "null",
                             style: TextTheme.of(context).displayMedium!
                                 .copyWith(
                                   fontSize: AppSize.sp18,
@@ -237,10 +255,8 @@ class ProfileScreen extends StatelessWidget {
                                 onTap: () =>
                                     menuItems[index].onTap?.call(context),
                                 contentPadding: EdgeInsets.zero,
-                                leading: Icon(
-                                  menuItems[index].icon,
-                                  color: color,
-                                ),
+                                leading: menuItems[index].icon,
+
                                 title: Text(
                                   menuItems[index].title,
                                   style: TextTheme.of(context).displayMedium!

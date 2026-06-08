@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:newsapp/core/Theme/light_colors.dart';
 import 'package:newsapp/core/constant/app_size.dart';
+import 'package:newsapp/core/repos/user_repo.dart';
 import 'package:newsapp/data_source/local_data/prefrencemanger.dart';
 import 'package:newsapp/features/Home/Home_screen.dart';
 import 'package:newsapp/features/auth/signup_screen.dart';
@@ -209,23 +210,18 @@ class _LogInScreenState extends State<LogInScreen> {
       isloading = true;
       errorMessage = null;
     });
-    final savedEmail = PerfrenceManager().getstring("Saved_Email");
-    final savedPassword = PerfrenceManager().getstring("Saved_Password");
-    if (savedEmail == null || savedPassword == null) {
+    String? error = UserRepositorty().login(
+      email: namecontroller.text,
+      password: passworedcontroller.text,
+    );
+    if (error == null) {
       setState(() {
-        errorMessage = "Please try to regestire";
+        errorMessage = error;
         isloading = false;
       });
       return;
     }
-    if (savedEmail != namecontroller.text.trim() ||
-        savedPassword != passworedcontroller.text.trim()) {
-      setState(() {
-        errorMessage = "Incorect Passwored Or Email ";
-        isloading = false;
-      });
-      return;
-    }
+
     PerfrenceManager().setbool("isloggedin", true);
     Navigator.pushReplacement(
       context,

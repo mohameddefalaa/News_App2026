@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:newsapp/core/Theme/light_theme.dart';
+import 'package:newsapp/core/repos/user_repo.dart';
 import 'package:newsapp/data_source/local_data/prefrencemanger.dart';
 import 'package:newsapp/features/Splash/splach_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await PerfrenceManager().init();
+  await UserRepositorty().init();
   runApp(const MyApp());
 }
 

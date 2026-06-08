@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:newsapp/core/Theme/light_colors.dart';
 import 'package:newsapp/core/constant/app_size.dart';
+import 'package:newsapp/core/repos/user_repo.dart';
 import 'package:newsapp/data_source/local_data/prefrencemanger.dart';
 import 'package:newsapp/features/Home/Home_screen.dart';
 import 'package:newsapp/features/Splash/splach_screen.dart';
@@ -257,42 +258,28 @@ class _SignUpScreenState extends State<SignUpScreen> {
       isLoading = true;
       errormessage = null;
     });
-    final savedEmail = PerfrenceManager().getstring("Saved_Email");
-    log(savedEmail ?? "");
-    log('---------');
-    log(emailcontroller.text);
-    if (savedEmail != null &&
-        savedEmail.trim().isNotEmpty &&
-        savedEmail.trim() == emailcontroller.text.trim()) {
-      log(savedEmail);
-      log('---------');
-      log(emailcontroller.text);
+    String? error = await UserRepositorty().signup(
+      name: namecontroller.text,
+      password: passworedcontroller.text,
+      email: emailcontroller.text,
+    );
+
+    if (error != null) {
       setState(() {
         isLoading = false;
-        errormessage = "Sorry This Email Already Registered";
+        errormessage = error;
       });
-    } else {
-      await PerfrenceManager().setstring(
-        "Saved_Name",
-        namecontroller.text.trim(),
-      );
-      await PerfrenceManager().setstring(
-        "Saved_Email",
-        emailcontroller.text.trim(),
-      );
-      await PerfrenceManager().setstring(
-        "Saved_Password",
-        passworedcontroller.text,
-      );
-      await PerfrenceManager().setbool("isloggedin", true);
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => MainScreen()),
-      );
-      setState(() {
-        errormessage = null;
-        isLoading = false;
-      });
+      return;
     }
+
+    await PerfrenceManager().setbool("isloggedin", true);
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => MainScreen()),
+    );
+    setState(() {
+      errormessage = null;
+      isLoading = false;
+    });
   }
 }

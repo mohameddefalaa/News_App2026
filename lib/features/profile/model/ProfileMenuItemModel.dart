@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class ProfileMenuItem {
   final String title;
-  final IconData icon;
+  final Widget icon;
   final void Function(BuildContext context)? onTap;
   final bool isLogout; // عشان نغير لون الزرار الأخير
 

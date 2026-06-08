@@ -1,13 +1,44 @@
 import 'package:flutter/material.dart';
 import 'package:newsapp/core/Theme/light_colors.dart';
 import 'package:newsapp/core/constant/app_size.dart';
-import 'package:newsapp/data_source/local_data/prefrencemanger.dart';
+import 'package:newsapp/core/models/user_model.dart';
+import 'package:newsapp/core/repos/user_repo.dart';
 import 'package:newsapp/features/auth/widget/custome_textfiled.dart';
 import 'package:newsapp/features/profile/Profile_controller.dart';
 import 'package:provider/provider.dart';
 
-class ProfilebottomSheet extends StatelessWidget {
+class ProfilebottomSheet extends StatefulWidget {
   const ProfilebottomSheet({super.key});
+
+  @override
+  State<ProfilebottomSheet> createState() => _ProfilebottomSheetState();
+}
+
+class _ProfilebottomSheetState extends State<ProfilebottomSheet> {
+  late TextEditingController namecontroller;
+  late TextEditingController emailcontroller;
+  @override
+  void initState() {
+    namecontroller = TextEditingController();
+    emailcontroller = TextEditingController();
+
+    loaduserdata();
+    super.initState();
+  }
+
+  void loaduserdata() {
+    final UserModel? currentUser = UserRepositorty().getUser();
+    namecontroller.text = currentUser?.name ?? "";
+
+    emailcontroller.text = currentUser?.email ?? "";
+  }
+
+  @override
+  void dispose() {
+    namecontroller.dispose();
+    emailcontroller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +71,7 @@ class ProfilebottomSheet extends StatelessWidget {
                 ),
                 CustomeTextFiled(
                   haintText: "User Name",
-                  controller: value.namecontroller,
+                  controller: namecontroller,
                 ),
                 Text(
                   "Email",
@@ -50,14 +81,17 @@ class ProfilebottomSheet extends StatelessWidget {
                 ),
                 CustomeTextFiled(
                   haintText: "MAil",
-                  controller: value.emailcontroller,
+                  controller: emailcontroller,
                 ),
 
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () async {
-                      value.EditeUserDatat();
+                      value.editUserData(
+                        newName: namecontroller.text,
+                        newEmail: emailcontroller.text,
+                      );
                       Navigator.pop(context);
                     },
                     child: Text(
