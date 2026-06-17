@@ -1,6 +1,7 @@
 import 'package:hive_ce_flutter/adapters.dart';
 import 'package:newsapp/core/models/user_model.dart';
 import 'package:newsapp/core/constant/constatnts.dart';
+import 'package:newsapp/data_source/local_data/prefrencemanger.dart';
 
 class UserRepositorty {
   UserRepositorty._internal() {
@@ -51,25 +52,19 @@ class UserRepositorty {
   }
 
   Future<void> setLoggedIn(bool value) async {
-    final UserModel? user = getUser();
-    if (user != null) {
-      await saveUser(user.copyWith(isloggedin: value));
-    }
+    await PerfrenceManager().setbool("isloggedin", value);
   }
 
   bool isLoggedIn() {
-    return getUser()?.isloggedin ?? false;
+    return PerfrenceManager().getbool("isloggedin") ?? false;
   }
 
   Future<void> setProfileImage(String path) async {
-    final UserModel? user = getUser();
-    if (user != null) {
-      await saveUser(user.copyWith(imagepath: path));
-    }
+    await PerfrenceManager().setstring("Saved_Image", path);
   }
 
   String? getProfileImage() {
-    return getUser()?.imagepath;
+    return PerfrenceManager().getstring("Saved_Image");
   }
 
   String? login({required String email, required String password}) {
@@ -97,7 +92,6 @@ class UserRepositorty {
       email: email,
       name: name,
       password: password,
-      isloggedin: false,
     );
     await saveUser(newuser);
     return null;
