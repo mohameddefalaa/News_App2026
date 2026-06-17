@@ -3,11 +3,10 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:newsapp/core/Theme/light_colors.dart';
 import 'package:newsapp/core/extensions/date_formate_extension.dart';
-import 'package:newsapp/core/repos/news_repository.dart';
 import 'package:newsapp/core/widgets/custome_cash_networkImage.dart';
 import 'package:newsapp/core/constant/app_size.dart';
-import 'package:newsapp/features/Home/home_conrtoller.dart';
 import 'package:newsapp/features/Home/models/news_article_model.dart';
+import 'package:newsapp/features/bookmark/bookmark_controller.dart';
 import 'package:provider/provider.dart';
 
 class NewsDetails extends StatelessWidget {
@@ -84,9 +83,20 @@ class NewsDetails extends StatelessWidget {
                       ],
                     ),
                   ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: Icon(Icons.bookmark_border),
+                  // ── Bookmark toggle icon ──────────────────────────────
+                  Consumer<BookmarkController>(
+                    builder: (context, controller, _) {
+                      final saved = controller.isBookmarked(article.url);
+                      return IconButton(
+                        onPressed: () => controller.toggleBookmark(article),
+                        icon: Icon(
+                          saved ? Icons.bookmark : Icons.bookmark_border,
+                          color: saved
+                              ? AppLightColor.primaryColor
+                              : AppLightColor.textPrimary,
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),

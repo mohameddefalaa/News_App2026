@@ -6,6 +6,8 @@ import 'package:newsapp/core/extensions/date_formate_extension.dart';
 import 'package:newsapp/core/constant/app_size.dart';
 import 'package:newsapp/core/widgets/custome_cash_networkImage.dart';
 import 'package:newsapp/features/Home/models/news_article_model.dart';
+import 'package:newsapp/features/bookmark/bookmark_controller.dart';
+import 'package:provider/provider.dart';
 
 class NewsItem extends StatelessWidget {
   const NewsItem({super.key, required this.article});
@@ -78,9 +80,21 @@ class NewsItem extends StatelessWidget {
                           ],
                         ),
                       ),
-                      IconButton(
-                        onPressed: () {},
-                        icon: Icon(Icons.bookmark_border),
+                      // ── Bookmark toggle icon ──────────────────────────────
+                      Consumer<BookmarkController>(
+                        builder: (context, controller, _) {
+                          final saved = controller.isBookmarked(article.url);
+                          return IconButton(
+                            onPressed: () =>
+                                controller.toggleBookmark(article),
+                            icon: Icon(
+                              saved ? Icons.bookmark : Icons.bookmark_border,
+                              color: saved
+                                  ? AppLightColor.primaryColor
+                                  : AppLightColor.textPrimary,
+                            ),
+                          );
+                        },
                       ),
                     ],
                   ),

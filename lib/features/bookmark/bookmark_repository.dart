@@ -40,4 +40,19 @@ class BookmarkRepository {
   List<BookmarkedArticle> getAllBookmarks() {
     return _box.values.toList().reversed.toList();
   }
+
+  /// Toggles the bookmark state of [article].
+  /// - If it is NOT bookmarked → saves it.
+  /// - If it IS already bookmarked → removes it.
+  /// Returns `true` if the article was added, `false` if it was removed.
+  Future<bool> toggleBookmark(BookmarkedArticle article) async {
+    if (isBookmarked(article.url)) {
+      await removeBookmark(article.url);
+      return false;
+    } else {
+      await addBookmark(article);
+      return true;
+    }
+  }
 }
+
