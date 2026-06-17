@@ -1,12 +1,7 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:newsapp/core/Theme/light_colors.dart';
 import 'package:newsapp/core/constant/app_size.dart';
 import 'package:newsapp/core/repos/user_repo.dart';
-import 'package:newsapp/data_source/local_data/prefrencemanger.dart';
-import 'package:newsapp/features/Home/Home_screen.dart';
-import 'package:newsapp/features/Splash/splach_screen.dart';
 import 'package:newsapp/features/auth/widget/custome_textfiled.dart';
 import 'package:newsapp/features/main/main_Screen.dart';
 
@@ -272,7 +267,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
       return;
     }
 
-    await PerfrenceManager().setbool("isloggedin", true);
+    await UserRepositorty().setLoggedIn(true);
+    if (!mounted) return;
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) => MainScreen()),

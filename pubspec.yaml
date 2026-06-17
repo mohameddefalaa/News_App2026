@@ -46,6 +46,7 @@ dependencies:
   country_picker: ^2.0.27
   image_picker: ^1.2.2
   hive_ce_flutter: ^2.3.4
+  webview_flutter: 4.8.0
 
 dev_dependencies:
   flutter_test:
@@ -112,3 +113,6 @@ flutter_launcher_icons:
   ios: true
   image_path: "assets/icons/appicon.png" # تأكد أن هذا المسار يطابق مكان صورة NEWST في مشروعك
   min_sdk_android: 21
+
+dependency_overrides:
+  webview_flutter_wkwebview: 3.13.0

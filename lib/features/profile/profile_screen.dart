@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:newsapp/core/Theme/light_colors.dart';
 import 'package:newsapp/core/constant/app_size.dart';
-import 'package:newsapp/data_source/local_data/prefrencemanger.dart';
+import 'package:newsapp/core/repos/user_repo.dart';
 import 'package:newsapp/features/auth/loigin_screen.dart';
 import 'package:newsapp/features/profile/Profile_controller.dart';
 import 'package:newsapp/features/profile/model/ProfileMenuItemModel.dart';
@@ -102,7 +102,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             icon: Icon(Icons.logout),
             isLogout: true, // خلينا دي true عشان تظهر باللون الأحمر
             onTap: (context) async {
-              await PerfrenceManager().setbool("isloggedin", false);
+              await UserRepositorty().setLoggedIn(false);
 
               if (!context.mounted) return;
               Navigator.pushReplacement(
@@ -132,7 +132,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           body: Consumer<ProfileController>(
             builder:
                 (BuildContext context, ProfileController value, Widget? child) {
-                  final image = PerfrenceManager().getstring("Saved_Image");
+                  final image = UserRepositorty().getProfileImage();
                   return Padding(
                     padding: EdgeInsets.all(AppSize.dg16),
                     child: Column(

@@ -3,6 +3,7 @@ import 'package:newsapp/core/constant/app_size.dart';
 import 'package:newsapp/features/Home/components/news_item.dart';
 import 'package:newsapp/features/Home/home_conrtoller.dart';
 import 'package:newsapp/features/NewsDetails/news_details.dart';
+import 'package:newsapp/features/NewsDetails/newswebviewdetails.dart';
 import 'package:provider/provider.dart';
 
 class TopHeadline extends StatelessWidget {
@@ -21,7 +22,7 @@ class TopHeadline extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (_) => NewsDetails(article: areticle),
+                    builder: (_) => NewsWebViewScreen(url: areticle.url),
                   ),
                 );
               },

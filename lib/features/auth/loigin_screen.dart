@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:newsapp/core/Theme/light_colors.dart';
 import 'package:newsapp/core/constant/app_size.dart';
 import 'package:newsapp/core/repos/user_repo.dart';
-import 'package:newsapp/data_source/local_data/prefrencemanger.dart';
 import 'package:newsapp/features/Home/Home_screen.dart';
 import 'package:newsapp/features/auth/signup_screen.dart';
 import 'package:newsapp/features/auth/widget/custome_textfiled.dart';
@@ -205,7 +204,7 @@ class _LogInScreenState extends State<LogInScreen> {
     );
   }
 
-  void login() {
+  void login() async {
     setState(() {
       isloading = true;
       errorMessage = null;
@@ -214,7 +213,7 @@ class _LogInScreenState extends State<LogInScreen> {
       email: namecontroller.text,
       password: passworedcontroller.text,
     );
-    if (error == null) {
+    if (error != null) {
       setState(() {
         errorMessage = error;
         isloading = false;
@@ -222,7 +221,8 @@ class _LogInScreenState extends State<LogInScreen> {
       return;
     }
 
-    PerfrenceManager().setbool("isloggedin", true);
+    await UserRepositorty().setLoggedIn(true);
+    if (!mounted) return;
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) => MainScreen()),

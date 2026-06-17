@@ -1,12 +1,10 @@
 import 'dart:developer';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:newsapp/core/mixins/notify_seafty.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:newsapp/core/models/user_model.dart';
 import 'package:newsapp/core/repos/user_repo.dart';
-import 'package:newsapp/data_source/local_data/prefrencemanger.dart';
 
 class ProfileController extends ChangeNotifier with notifyseafty {
   String? name;
@@ -40,10 +38,7 @@ class ProfileController extends ChangeNotifier with notifyseafty {
 
   void saveImage() async {
     if (selectedimage == null) return;
-    bool? savedImage = await PerfrenceManager().setstring(
-      "Saved_Image",
-      selectedimage!.path,
-    );
+    await UserRepositorty().setProfileImage(selectedimage!.path);
   }
 
   void RefreshUserdata() {

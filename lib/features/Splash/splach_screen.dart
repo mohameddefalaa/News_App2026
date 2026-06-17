@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:newsapp/core/constant/app_size.dart';
+import 'package:newsapp/core/repos/user_repo.dart';
 import 'package:newsapp/data_source/local_data/prefrencemanger.dart';
-import 'package:newsapp/features/Home/Home_screen.dart';
 import 'package:newsapp/features/auth/loigin_screen.dart';
 import 'package:newsapp/features/main/main_Screen.dart';
 import 'package:newsapp/features/onBoarding/onboarding_screen.dart';
@@ -35,7 +34,7 @@ class _SplashScreenState extends State<SplashScreen> {
     bool? isOnBoardingComplete =
         PerfrenceManager().getbool("IsFinished") ?? false;
 
-    bool? isloggedin = PerfrenceManager().getbool("isloggedin") ?? false;
+    bool isloggedin = UserRepositorty().isLoggedIn();
     if (!isOnBoardingComplete) {
       if (!mounted) return;
       Navigator.pushReplacement(

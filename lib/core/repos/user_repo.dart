@@ -50,6 +50,28 @@ class UserRepositorty {
     await box.delete(Constatnts.currentuser);
   }
 
+  Future<void> setLoggedIn(bool value) async {
+    final UserModel? user = getUser();
+    if (user != null) {
+      await saveUser(user.copyWith(isloggedin: value));
+    }
+  }
+
+  bool isLoggedIn() {
+    return getUser()?.isloggedin ?? false;
+  }
+
+  Future<void> setProfileImage(String path) async {
+    final UserModel? user = getUser();
+    if (user != null) {
+      await saveUser(user.copyWith(imagepath: path));
+    }
+  }
+
+  String? getProfileImage() {
+    return getUser()?.imagepath;
+  }
+
   String? login({required String email, required String password}) {
     UserModel? currentuser = UserRepositorty().getUser();
 
@@ -71,7 +93,12 @@ class UserRepositorty {
     if (currentuser != null) {
       return " user alreaedy exist please try again";
     }
-    final newuser = UserModel(email: email, name: name, password: password);
+    final newuser = UserModel(
+      email: email,
+      name: name,
+      password: password,
+      isloggedin: false,
+    );
     await saveUser(newuser);
     return null;
   }
